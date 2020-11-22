@@ -13,9 +13,6 @@
 [submodule "kubectl-gke-stable-bin"]
 	path = kubectl-gke-stable-bin
 	url = ssh://aur@aur.archlinux.org/kubectl-gke-stable-bin.git
-[submodule "ruby-sequel"]
-	path = ruby-sequel
-	url = ssh://aur@aur.archlinux.org/ruby-sequel.git
 [submodule "rustotpony"]
 	path = rustotpony
 	url = ssh://aur@aur.archlinux.org/rustotpony.git
