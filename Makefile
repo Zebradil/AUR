@@ -1,9 +1,6 @@
 include $(shell git rev-parse --show-toplevel)/.bootstrap.mk
 
-update-submodules::
-	git submodule update --init --recursive
-
-update-all-and-push::
+all:: submodules
 	for d in `ls`
 	do
 		$(MAKE) -C $$d update
@@ -14,6 +11,9 @@ update-all-and-push::
 	done
 	git commit -am 'Update'
 	git push
+
+submodules::
+	git submodule update --recursive
 
 update-carvel-tools::
 update-docoseco::
