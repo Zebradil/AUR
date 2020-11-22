@@ -1,9 +1,9 @@
 include $(shell git rev-parse --show-toplevel)/.bootstrap.mk
 
 all:: submodules
-	for d in `ls`
+	for d in `ls pkg`
 	do
-		$(MAKE) -C $$d update
+		$(MAKE) -C pkg/$$d update
 	done
 	for d in $$(git diff --name-only --diff-filter=ACMR)
 	do
@@ -26,5 +26,5 @@ update-rustotpony-bin::
 update-xkb-switch-i3::
 update-xkb-switch-i3-git::
 update-%::
-	$(MAKE) -C $* update
+	$(MAKE) -C pkg/$* update
 
