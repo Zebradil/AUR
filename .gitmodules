@@ -1,27 +1,27 @@
 [submodule "carvel-tools"]
-	path = carvel-tools
+	path = pkg/carvel-tools
 	url = ssh://aur@aur.archlinux.org/carvel-tools.git
 [submodule "docoseco"]
-	path = docoseco
+	path = pkg/docoseco
 	url = ssh://aur@aur.archlinux.org/docoseco.git
 [submodule "kubectl-gke-rapid-bin"]
-	path = kubectl-gke-rapid-bin
+	path = pkg/kubectl-gke-rapid-bin
 	url = ssh://aur@aur.archlinux.org/kubectl-gke-rapid-bin.git
 [submodule "kubectl-gke-regular-bin"]
-	path = kubectl-gke-regular-bin
+	path = pkg/kubectl-gke-regular-bin
 	url = ssh://aur@aur.archlinux.org/kubectl-gke-regular-bin.git
 [submodule "kubectl-gke-stable-bin"]
-	path = kubectl-gke-stable-bin
+	path = pkg/kubectl-gke-stable-bin
 	url = ssh://aur@aur.archlinux.org/kubectl-gke-stable-bin.git
 [submodule "rustotpony"]
-	path = rustotpony
+	path = pkg/rustotpony
 	url = ssh://aur@aur.archlinux.org/rustotpony.git
 [submodule "rustotpony-bin"]
-	path = rustotpony-bin
+	path = pkg/rustotpony-bin
 	url = ssh://aur@aur.archlinux.org/rustotpony-bin.git
 [submodule "xkb-switch-i3"]
-	path = xkb-switch-i3
+	path = pkg/xkb-switch-i3
 	url = ssh://aur@aur.archlinux.org/xkb-switch-i3.git
 [submodule "xkb-switch-i3-git"]
-	path = xkb-switch-i3-git
+	path = pkg/xkb-switch-i3-git
 	url = ssh://aur@aur.archlinux.org/xkb-switch-i3-git.git
