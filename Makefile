@@ -3,11 +3,13 @@ include $(shell git rev-parse --show-toplevel)/.bootstrap.mk
 all:: submodules
 	for d in `ls pkg`
 	do
+		git -C pkg/$$d reset HEAD --hard
+		git -C pkg/$$d pull origin master
 		$(MAKE) -C pkg/$$d update
 	done
 	for d in $$(git diff --name-only --diff-filter=ACMR)
 	do
-		(cd $$d; git commit -am 'Update'; git push)
+		(cd $$d; git commit -am 'Update'; git push origin master)
 	done
 	git commit -am 'Update'
 	git push
