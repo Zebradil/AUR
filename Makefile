@@ -4,7 +4,7 @@ all:: submodules ## Updates all packages, commits and pushes changes
 	printf "\033[0;33mUpdating packages:\033[0m\n"
 	for d in `ls pkg`
 	do
-		printf "\033[0;32m$${d}\033[0m\n"
+		printf "\n\033[0;32m$${d}\033[0m\n"
 		git -C pkg/$$d reset HEAD --hard
 		git -C pkg/$$d pull origin master
 		$(MAKE) -C pkg/$$d update
@@ -12,10 +12,10 @@ all:: submodules ## Updates all packages, commits and pushes changes
 	printf "\n\033[0;33mCommitting and pushing changes:\033[0m\n"
 	for d in $$(git diff --name-only --diff-filter=ACMR)
 	do
-		printf "\033[0;32m$${d}\033[0m\n"
+		printf "\n\033[0;32m$${d}\033[0m\n"
 		(cd $$d; git commit -am 'Update'; git push origin master)
 	done
-	printf "\033[0;32mMain repo\033[0m\n"
+	printf "\n\033[0;32mMain repo\033[0m\n"
 	git commit -am 'Update'
 	git push
 
