@@ -16,7 +16,7 @@ all:: submodules ## Updates all packages, commits and pushes changes
 	do
 		printf "\n\033[0;32m$${d}\033[0m\n"
 		[ ! -d "$$d" ] && continue
-		(cd "$$d"; git commit -am 'Update'; git push origin master)
+		(cd "$$d"; git commit -am 'Update' || true; git push origin master)
 	done
 	printf "\n\033[0;32mMain repo\033[0m\n"
 	git commit -am 'Update'
