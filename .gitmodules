@@ -34,3 +34,6 @@
 	path = pkg/xkb-switch-i3-git
 	url = ssh://aur@aur.archlinux.org/xkb-switch-i3-git.git
     branch = master
+[submodule "pkg/cloudflare-dynamic-dns"]
+	path = pkg/cloudflare-dynamic-dns
+	url = ssh://aur@aur.archlinux.org/cloudflare-dynamic-dns.git
