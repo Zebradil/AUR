@@ -14,7 +14,7 @@ PKG_DIR="$ROOT/pkg"
 
 log::info "Updating packages one by one:"
 for d in "$PKG_DIR"/*; do
-  log::info "  $d"
+  log::info "  $(basename "$d")"
   git -C "$d" reset HEAD --hard > /dev/null
   git -C "$d" checkout master > /dev/null
   git -C "$d" pull origin master > /dev/null
