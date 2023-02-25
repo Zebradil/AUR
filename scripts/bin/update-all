@@ -3,27 +3,29 @@
 set -euo pipefail
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-readonly DIR
-
 source "${DIR}/../lib/logger.sh"
+
+ROOT="$(git rev-parse --show-toplevel)"
 
 log::info "Pulling from the base repo..."
 git pull -p > /dev/null
 
+PKG_DIR="$ROOT/pkg"
+
 log::info "Updating packages one by one:"
-for d in pkg/*; do
+for d in "$PKG_DIR"/*; do
   log::info "  $d"
-  git -C pkg/"$d" reset HEAD --hard > /dev/null
-  git -C pkg/"$d" checkout master > /dev/null
-  git -C pkg/"$d" pull origin master > /dev/null
-  make -C pkg/"$d" update > /dev/null
+  git -C "$d" reset HEAD --hard > /dev/null
+  git -C "$d" checkout master > /dev/null
+  git -C "$d" pull origin master > /dev/null
+  make -C "$d" update > /dev/null
 done
 
 log::info "Committing and pushing changes:"
 for d in $(git diff --name-only --diff-filter=ACMR); do
   log::info "  $d"
-  if [[ -d "$d" ]]; then
-    (cd "$d"; git commit -am 'Update' || true; git push origin master) > /dev/null
+  if [[ -d "$ROOT/$d" ]]; then
+    (cd "$ROOT/$d"; git commit -am 'Update' || true; git push origin master) > /dev/null
   else
     log::warn "  $d is not a directory, skipping"
   fi

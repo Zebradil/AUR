@@ -1,7 +1,7 @@
 include $(shell git rev-parse --show-toplevel)/.bootstrap.mk
 
 all:: submodules ## Updates all packages, commits and pushes changes
-	scripts/update-all
+	scripts/bin/update-all
 
 submodules:: ## Updates submodules
 	git submodule update --recursive
