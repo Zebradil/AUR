@@ -37,3 +37,6 @@
 [submodule "pkg/cloudflare-dynamic-dns"]
 	path = pkg/cloudflare-dynamic-dns
 	url = ssh://aur@aur.archlinux.org/cloudflare-dynamic-dns.git
+[submodule "pkg/myks-bin"]
+	path = pkg/myks-bin
+	url = ssh://aur@aur.archlinux.org/myks-bin.git
