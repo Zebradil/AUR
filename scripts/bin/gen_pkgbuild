@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+
+if [[ -n "${DEBUG:-}" ]]; then
+    set -x
+fi
+
+set -euo pipefail
+
+help() {
+    cat <<EOF
+Usage: $(basename "$0") AUR_PACKAGE
+
+Generates a PKGBUILD file for the given AUR package.
+
+AUR_PACKAGE is one of the directories in the pkg/ directory.
+            It must contain a pkgbuild_data.sh file.
+
+pkgbuild_data.sh is a bash script that defines the following variables:
+  - pkgname¹
+  - pkgver
+  - pkgrel
+  - pkgdesc¹
+  - url¹
+  - license
+  - arch
+  - groups
+  - backup
+  - depends
+  - makedepends
+  - checkdepends
+  - optdepends
+  - conflicts
+  - provides
+  - replaces
+  - source
+  - sha256sums
+and the following functions:
+  - prepare
+  - build
+  - check
+  - package¹
+
+¹ - required
+EOF
+}
+
+if [[ $# -ne 1 ]]; then
+    help
+    exit 1
+fi
+
+ROOT="$(git rev-parse --show-toplevel)"
+source "$ROOT/scripts/lib/logger.sh"
+source "$ROOT/scripts/lib/pkgbuild.sh"
+
+AUR_PACKAGE="$1"
+
+if [[ ! -d "$ROOT/pkg/$AUR_PACKAGE" ]]; then
+    log::error "Directory $ROOT/pkg/$AUR_PACKAGE does not exist"
+    exit 1
+fi
+
+log::info "Updating $AUR_PACKAGE..."
+
+# shellcheck disable=SC1090
+source "$ROOT/pkg/$AUR_PACKAGE/pkgbuild_data.sh"
+
+dest_pkgbuild="$ROOT/pkg/$AUR_PACKAGE/PKGBUILD"
+
+if [[ ! -f "$dest_pkgbuild" ]]; then
+    log::warn "File $dest_pkgbuild does not exist, creating a new one..."
+    {
+        echo "# This is a temporary PKGBUILD file."
+        echo "# It must have been overwritten by the update-all script."
+        echo "# So, if you see this file, it means that something went wrong."
+    } > "$dest_pkgbuild"
+fi
+
+dest_pkgver="$(rg '^pkgver=(.+)' --replace '$1' "$dest_pkgbuild" || true)"
+dest_pkgrel="$(rg '^pkgrel=(.+)' --replace '$1' "$dest_pkgbuild" || true)"
+
+tmp_pkgbuild="$(mktemp --suffix="_${AUR_PACKAGE}.pkgbuild")"
+
+log::debug "Generating $tmp_pkgbuild..."
+
+pkgb:header > "$tmp_pkgbuild"
+
+tmp_pkgver="${pkgver:-$(date +%Y%m%d)}"
+tmp_pkgrel="${pkgrel:-1}"
+
+if [[ "$dest_pkgver" == "$tmp_pkgver" ]]; then
+    tmp_pkgrel="$((dest_pkgrel + 1))"
+fi
+
+cat <<EOF >>"$tmp_pkgbuild"
+pkgname=${pkgname:?}
+pkgver=${tmp_pkgver}
+pkgrel=${tmp_pkgrel}
+pkgdesc="${pkgdesc:?}"
+url="${url:?}"
+arch=(${arch[@]:-any})
+license=(${license[@]:-unknown})
+groups=(${groups[@]:-})
+backup=(${backup[@]:-})
+EOF
+
+arch_specific_fields=(
+    depends
+    makedepends
+    checkdepends
+    optdepends
+    conflicts
+    provides
+    replaces
+    source
+    sha256sums
+)
+
+for field in "${arch_specific_fields[@]}"; do
+    eval "echo \"${field}=(\${${field}[@]:-})\""
+
+    for a in "${arch[@]:-}"; do
+        if [[ -n $a ]]; then
+            eval "echo \"${field}_${a}=(\${${field}_${a}[@]:-})\""
+        fi
+    done
+done >>"$tmp_pkgbuild"
+
+{
+    declare -f prepare || true
+    declare -f build || true
+    declare -f check || true
+
+    if ! declare -f package; then
+        log::error "package() function is not defined"
+        exit 1
+    fi
+} >>"$tmp_pkgbuild"
+
+if diff -q \
+    <(sed '/^pkgver=/d; /^pkgrel=/d' "$dest_pkgbuild") \
+    <(sed '/^pkgver=/d; /^pkgrel=/d' "$tmp_pkgbuild") \
+    >/dev/null; then
+    log::info "No changes"
+    exit 0
+fi
+
+log::info "Moving $tmp_pkgbuild to $dest_pkgbuild..."
+mv "$tmp_pkgbuild" "$dest_pkgbuild"
