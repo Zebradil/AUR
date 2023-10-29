@@ -16,11 +16,11 @@ jobs:
   list_packages:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Build JSON list of packages
-        run: |
-          echo "packages=$(jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v2
+      - id: build
+        run: echo "packages=$(jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
+    outputs:
+      packages: ${{ steps.build.outputs.packages }}
   debug_list:
     needs: list_packages
     runs-on: ubuntu-latest
