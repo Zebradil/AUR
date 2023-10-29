@@ -18,7 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: build
-        run: echo "packages=$(jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
+        run: |
+          cd packages
+          echo "packages=$(ls | jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
     outputs:
       packages: ${{ steps.build.outputs.packages }}
   debug_list:
