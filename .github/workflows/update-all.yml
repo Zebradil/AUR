@@ -62,7 +62,7 @@ jobs:
         with:
           ref: ${{ needs.generate_pkgbuilds.outputs.last_sha }}
       - name: Push to AUR
-        uses: KSXGitHub/github-actions-deploy-aur@v2.7
+        uses: KSXGitHub/github-actions-deploy-aur@v2
         with:
           pkgname: ${{ matrix.package }}
           pkgbuild: ./packages/${{ matrix.package }}/PKGBUILD
