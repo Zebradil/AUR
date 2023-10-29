@@ -21,6 +21,13 @@ jobs:
       - name: Build JSON list of packages
         run: |
           echo "packages=$(jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
+  debug_list:
+    needs: list_packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: List packages
+        run: |
+          echo "${{ needs.list_packages.outputs.packages }}"
   update_packages:
     needs: list_packages
     runs-on: ubuntu-latest
