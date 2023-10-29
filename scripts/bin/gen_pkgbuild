@@ -16,11 +16,11 @@ AUR_PACKAGE is one of the directories in the pkg/ directory.
             It must contain a pkgbuild_data.sh file.
 
 pkgbuild_data.sh is a bash script that defines the following variables:
-  - pkgname¹
+  - pkgname*
   - pkgver
   - pkgrel
-  - pkgdesc¹
-  - url¹
+  - pkgdesc*
+  - url*
   - license
   - arch
   - groups
@@ -38,9 +38,9 @@ and the following functions:
   - prepare
   - build
   - check
-  - package¹
+  - package*
 
-¹ - required
+* - required
 EOF
 }
 
