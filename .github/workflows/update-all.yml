@@ -47,7 +47,11 @@ jobs:
             fi
           done
 
-          echo "updated_packages=$(echo "${updated_packages[@]}" | jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
+          if [[ ${#updated_packages[@]} -gt 0 ]]; then
+            echo "No packages updated"
+            echo "updated_packages=$(echo "${updated_packages[@]}" | jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
+          fi
+
           echo "last_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
   update_packages:
     runs-on: ubuntu-latest
