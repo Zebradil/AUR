@@ -20,14 +20,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Build JSON list of packages
         run: |
-          cd packages
-          pkgs=()
-          for package in */; do
-            pkgs+=( "${package%/}" )
-          done
-          echo "packages=$(jq -n --argjson pkgs "${pkgs[*]}" '$pkgs')" \
-            >> $GITHUB_OUTPUT
-        shell: bash
+          echo "packages=$(jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
   update_packages:
     needs: list_packages
     runs-on: ubuntu-latest
