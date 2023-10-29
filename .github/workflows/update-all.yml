@@ -1,0 +1,52 @@
+# This workflow is triggered on a schedule, and will update all the
+# AUR packages in the repository.
+
+---
+name: Update all packages
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  list_packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build JSON list of packages
+        run: |
+          cd packages
+          pkgs=()
+          for package in */; do
+            pkgs+=( "${package%/}" )
+          done
+          echo "packages=$(jq -n --argjson pkgs "${pkgs[*]}" '$pkgs')" \
+            >> $GITHUB_OUTPUT
+        shell: bash
+  update_packages:
+    needs: list_packages
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.list_packages.outputs.packages) }}
+    steps:
+      - name: List current package name
+        run: |
+          echo "Package: ${{ matrix.package }}"
+      # - name: Checkout
+      #   uses: actions/checkout@v2
+      # - name: Update package
+      #   uses: actionshub/aur-action@v1
+      #   with:
+      #     package: ${{ matrix.package }}
+      #     update: true
+      #     push: true
+      #     commit-message: "Update ${{ matrix.package }}"
+      #     commit-user-name: "AUR Bot"
+      #     commit-user-email: "german.lashevich+aur-bot@gmail.com"
