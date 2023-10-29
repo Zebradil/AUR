@@ -21,15 +21,10 @@ jobs:
         run: |
           cd packages
           echo "packages=$(ls | jq -Rnc '[inputs]')" >> $GITHUB_OUTPUT
+      - name: Print result
+        run: echo ${{ steps.build.outputs.packages }}
     outputs:
       packages: ${{ steps.build.outputs.packages }}
-  debug_list:
-    needs: list_packages
-    runs-on: ubuntu-latest
-    steps:
-      - name: List packages
-        run: |
-          echo "${{ needs.list_packages.outputs.packages }}"
   update_packages:
     needs: list_packages
     runs-on: ubuntu-latest
@@ -38,17 +33,18 @@ jobs:
       matrix:
         package: ${{ fromJson(needs.list_packages.outputs.packages) }}
     steps:
-      - name: List current package name
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Generate PKGBUILD
         run: |
-          echo "Package: ${{ matrix.package }}"
-      # - name: Checkout
-      #   uses: actions/checkout@v2
-      # - name: Update package
-      #   uses: actionshub/aur-action@v1
-      #   with:
-      #     package: ${{ matrix.package }}
-      #     update: true
-      #     push: true
-      #     commit-message: "Update ${{ matrix.package }}"
-      #     commit-user-name: "AUR Bot"
-      #     commit-user-email: "german.lashevich+aur-bot@gmail.com"
+          ./scripts/bin/gen_pkgbuild ${{ matrix.package }}
+      - name: Push to AUR
+        uses: KSXGitHub/github-actions-deploy-aur@<TAG>
+        with:
+          pkgname: ${{ matrix.package }}
+          pkgbuild: ./packages/${{ matrix.package }}/PKGBUILD
+          commit_message: "Automatic update"
+          commit_username: "AUR Bot"
+          commit_email: "german.lashevich+aur-bot@gmail.com"
+          allow_empty_commits: false
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
