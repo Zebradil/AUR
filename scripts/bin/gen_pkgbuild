@@ -78,8 +78,8 @@ if [[ ! -f "$dest_pkgbuild" ]]; then
     } > "$dest_pkgbuild"
 fi
 
-dest_pkgver="$(rg '^pkgver=(.+)' --replace '$1' "$dest_pkgbuild" || true)"
-dest_pkgrel="$(rg '^pkgrel=(.+)' --replace '$1' "$dest_pkgbuild" || true)"
+dest_pkgver="$(sed -rn 's/^pkgver=(.+)/\1/p' "$dest_pkgbuild")"
+dest_pkgrel="$(sed -rn 's/^pkgrel=(.+)/\1/p' "$dest_pkgbuild")"
 
 tmp_pkgbuild="$(mktemp --suffix="_${AUR_PACKAGE}.pkgbuild")"
 
