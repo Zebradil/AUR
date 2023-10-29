@@ -6,13 +6,15 @@ fi
 
 set -euo pipefail
 
+PKG_DIR=packages
+
 help() {
     cat <<EOF
 Usage: $(basename "$0") AUR_PACKAGE
 
 Generates a PKGBUILD file for the given AUR package.
 
-AUR_PACKAGE is one of the directories in the pkg/ directory.
+AUR_PACKAGE is one of the directories in the $PKG_DIR/ directory.
             It must contain a pkgbuild_data.sh file.
 
 pkgbuild_data.sh is a bash script that defines the following variables:
@@ -55,17 +57,17 @@ source "$ROOT/scripts/lib/pkgbuild.sh"
 
 AUR_PACKAGE="$1"
 
-if [[ ! -d "$ROOT/pkg/$AUR_PACKAGE" ]]; then
-    log::error "Directory $ROOT/pkg/$AUR_PACKAGE does not exist"
+if [[ ! -d "$ROOT/$PKG_DIR/$AUR_PACKAGE" ]]; then
+    log::error "Directory $ROOT/$PKG_DIR/$AUR_PACKAGE does not exist"
     exit 1
 fi
 
 log::info "Updating $AUR_PACKAGE..."
 
 # shellcheck disable=SC1090
-source "$ROOT/pkg/$AUR_PACKAGE/pkgbuild_data.sh"
+source "$ROOT/$PKG_DIR/$AUR_PACKAGE/pkgbuild_data.sh"
 
-dest_pkgbuild="$ROOT/pkg/$AUR_PACKAGE/PKGBUILD"
+dest_pkgbuild="$ROOT/$PKG_DIR/$AUR_PACKAGE/PKGBUILD"
 
 if [[ ! -f "$dest_pkgbuild" ]]; then
     log::warn "File $dest_pkgbuild does not exist, creating a new one..."
