@@ -1,18 +1,14 @@
 # shellcheck disable=SC2034,SC2154
 
-pkgver="$(curl \
-  -fsSL \
-  https://api.github.com/repos/zebradil/cloudflare-dynamic-dns/releases/latest \
-  --header "Authorization: Bearer ${GITHUB_TOKEN:?}" \
-  | jq -r '.tag_name')"
-
 pkgname=cloudflare-dynamic-dns
+pkgver="$(pkgb:get_latest_github_release "$pkgname")"
 pkgdesc='Updates AAAA records at Cloudflare according to the current IPv6 address'
 url='https://github.com/Zebradil/cloudflare-dynamic-dns'
 license=('MIT')
 makedepends=('go')
 source=("${pkgname}-${pkgver}::https://github.com/zebradil/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=('e1af4b7f941c13b478a8285343de8c05455600a2e0709281253e7ec1b5708fe3')
+sha256sums=()
+update_hashsums=true
 
 prepare() {
     cd "$pkgname-$pkgver" || exit 1
@@ -36,7 +32,18 @@ check() {
 
 package() {
     cd "$pkgname-$pkgver" || exit 1
-    install -Dm755 build/$pkgname "$pkgdir"/usr/bin/$pkgname
-    install -Dm644 systemd/* -t "$pkgdir"/usr/lib/systemd/system
-    install -m700 -d "$pkgdir"/etc/cloudflare-dynamic-dns/config.d
-}
+
+    BIN=$pkgname
+
+    install -Dm755 ./$BIN -t "$pkgdir/usr/bin"
+    install -Dm644 systemd/* -t "$pkgdir/usr/lib/systemd/system"
+    install -m700 -d "$pkgdir/etc/$pkgname/config.d"
+
+      # completions
+      mkdir -p "$pkgdir/usr/share/bash-completion/completions/"
+      mkdir -p "$pkgdir/usr/share/zsh/site-functions/"
+      mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/"
+      ./$BIN completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$BIN"
+      ./$BIN completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$BIN.fish"
+      ./$BIN completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$BIN"
+  }
