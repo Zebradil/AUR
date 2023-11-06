@@ -36,6 +36,7 @@ pkgbuild_data.sh is a bash script that defines the following variables:
   - replaces
   - source
   - sha256sums
+  - update_hashsums (instructs to run updpkgsums on the generated PKGBUILD)
 and the following functions:
   - prepare
   - build
@@ -138,6 +139,12 @@ done >>"$tmp_pkgbuild"
         exit 1
     fi
 } >>"$tmp_pkgbuild"
+
+if [[ -n $update_hashsums ]]; then
+    log::info "Updating hashsums..."
+    updpkgsums "$tmp_pkgbuild"
+fi
+
 
 if diff -q \
     <(sed '/^pkgver=/d; /^pkgrel=/d' "$dest_pkgbuild") \
