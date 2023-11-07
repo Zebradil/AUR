@@ -81,8 +81,10 @@ jobs:
 
           echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
           cd "$GITHUB_WORKSPACE"
-          ls -la
           ls -la .git
+          cat .git/config
+          echo '====='
+          cat .git/HEAD
 
           git config user.email "github-actions[bot]@github.com"
           git config user.name "GitHub Actions"
