@@ -21,6 +21,9 @@ jobs:
     outputs:
       updated_packages: ${{ steps.generate_pkgbuilds.outputs.updated_packages }}
       last_sha: ${{ steps.generate_pkgbuilds.outputs.last_sha }}
+    env:
+      # To be able to use gh cli
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
