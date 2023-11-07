@@ -58,7 +58,7 @@ _retrieve_data() {
                 >>"${_tmpdir}/_source_${arch_pkg}"
 
             jq --raw-output '.body' <"${tmp_file}" \
-                | rg -F "linux-${arch_bin}" \
+                | grep -F "linux-${arch_bin}" \
                 | awk '{print $1}' \
                 >>"${_tmpdir}/_hashsum_${arch_pkg}"
         done
@@ -77,7 +77,7 @@ _gen_package(){
 
     echo "package() {"
     for tool in "${_tools[@]}"; do
-        bin_name=$(rg "^${tool}[^:]+" -o "${_tmpdir}/_source_x86_64")
+        bin_name=$(grep -E "^${tool}[^:]+" -o "${_tmpdir}/_source_x86_64")
         # shellcheck disable=SC2016
         echo 'install -Dm 755 "${srcdir}/'"${bin_name}"'" "${pkgdir}/usr/bin/'"${tool}"'"'
     done
