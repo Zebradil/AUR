@@ -72,16 +72,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Debug envs bash
-        shell: bash
-        run: |
-          env | sort
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
       - name: Generate and commit PKGBUILDs
         id: generate_pkgbuilds
         shell: bash
@@ -92,6 +82,7 @@ jobs:
           echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
           cd "$GITHUB_WORKSPACE"
           ls -la
+          ls -la .git
 
           git config user.email "github-actions[bot]@github.com"
           git config user.name "GitHub Actions"
