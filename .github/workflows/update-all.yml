@@ -88,6 +88,8 @@ jobs:
 
           git --version
 
+          git config --global --add safe.directory $(realpath .)
+
           git config user.email "github-actions[bot]@github.com"
           git config user.name "GitHub Actions"
 
