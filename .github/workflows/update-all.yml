@@ -79,7 +79,7 @@ jobs:
           # https://github.com/actions/runner/issues/2058
           #cd "${{ github.workspace }}"
 
-          cd "${{ env.GITHUB_WORKSPACE }}"
+          cd "$GITHUB_WORKSPACE"
 
           git config user.email "github-actions[bot]@github.com"
           git config user.name "GitHub Actions"
