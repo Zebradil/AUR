@@ -140,7 +140,7 @@ done >>"$tmp_pkgbuild"
     fi
 } >>"$tmp_pkgbuild"
 
-if [[ -n $update_hashsums ]]; then
+if [[ -n ${update_hashsums-} ]]; then
     log::info "Updating hashsums..."
     updpkgsums "$tmp_pkgbuild"
 fi
