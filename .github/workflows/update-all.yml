@@ -79,15 +79,9 @@ jobs:
           # https://github.com/actions/runner/issues/2058
           #cd "${{ github.workspace }}"
 
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
           cd "$GITHUB_WORKSPACE"
-          ls -la .git
-          cat .git/config
-          echo '====='
-          cat .git/HEAD
 
-          git --version
-
+          # https://github.com/actions/checkout/issues/363
           git config --global --add safe.directory $(realpath .)
 
           git config user.email "github-actions[bot]@github.com"
