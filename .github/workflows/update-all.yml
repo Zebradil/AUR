@@ -24,6 +24,8 @@ jobs:
     env:
       # To be able to use gh cli
       GH_TOKEN: ${{ github.token }}
+      # GITHUB_TOKEN is sometimes used in scripts to avoid rate limiting
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
