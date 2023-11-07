@@ -18,6 +18,8 @@ permissions:
 jobs:
   generate_pkgbuilds:
     runs-on: ubuntu-latest
+    container:
+      image: Dockerfile
     outputs:
       updated_packages: ${{ steps.generate_pkgbuilds.outputs.updated_packages }}
       last_sha: ${{ steps.generate_pkgbuilds.outputs.last_sha }}
