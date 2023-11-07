@@ -6,3 +6,5 @@ RUN pacman -Suy --needed --noconfirm \
   jq \
   pacman-contrib \
   sudo
+
+RUN useradd -m -s /bin/bash nonroot
