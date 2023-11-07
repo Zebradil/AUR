@@ -86,6 +86,8 @@ jobs:
           echo '====='
           cat .git/HEAD
 
+          git --version
+
           git config user.email "github-actions[bot]@github.com"
           git config user.name "GitHub Actions"
 
