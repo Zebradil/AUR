@@ -76,7 +76,10 @@ jobs:
         id: generate_pkgbuilds
         shell: bash
         run: |
-          cd "${{ github.workspace }}"
+          # https://github.com/actions/runner/issues/2058
+          #cd "${{ github.workspace }}"
+
+          cd "${{ env.GITHUB_WORKSPACE }}"
 
           git config user.email "github-actions[bot]@github.com"
           git config user.name "GitHub Actions"
