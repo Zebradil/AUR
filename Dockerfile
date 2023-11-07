@@ -4,4 +4,5 @@ RUN pacman -Suy --needed --noconfirm \
   git \
   github-cli \
   jq \
-  pacman-contrib
+  pacman-contrib \
+  sudo
