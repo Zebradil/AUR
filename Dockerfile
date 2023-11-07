@@ -5,3 +5,5 @@ RUN pacman -Suy --needed --noconfirm \
   github-cli \
   jq \
   pacman-contrib
+
+USER 1000
