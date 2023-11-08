@@ -72,9 +72,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          # For detecting changes
-          depth: 1
       - name: Generate and commit PKGBUILDs
         id: generate_pkgbuilds
         shell: bash
