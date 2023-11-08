@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -euo pipefail
+
+exec runuser "${APP_USER:?}" --command "bash -l -c '$*'"

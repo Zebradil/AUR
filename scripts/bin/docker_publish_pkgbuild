@@ -1,0 +1,134 @@
+#!/bin/bash
+# shellcheck disable=SC2024
+
+set -euo pipefail
+
+BIN_DIR="$(cd -- "$(dirname $(readlink -f -- "${BASH_SOURCE[0]}"))" &>/dev/null && pwd)"
+LIB_DIR="$BIN_DIR/../lib"
+source "$LIB_DIR/ci.sh"
+
+# Default values
+COMMIT_MESSAGE="Update PKGBUILD and .SRCINFO with GitHub Actions"
+SSH_KEYSCAN_TYPES="rsa,dsa,ecdsa,ed25519"
+TEST_FLAGS="--clean --cleanbuild --nodeps"
+
+
+REQUIRED_INPUTS=(
+    COMMIT_EMAIL
+    COMMIT_USERNAME
+    PKGBUILD
+    PKGNAME
+    SSH_PRIVATE_KEY
+)
+
+for input in "${REQUIRED_INPUTS[@]}"; do
+    ci::assert_non_empty "$input" "${!input}"
+done
+
+BOOLEAN_INPUTS=(
+    ALLOW_EMPTY_COMMITS
+    FORCE_PUSH
+    TEST
+    UPDPKGSUMS
+)
+
+for input in "${BOOLEAN_INPUTS[@]}"; do
+    declare $input="${!input:-false}"
+    ci::assert_boolean "$input" "${!input}"
+done
+
+export HOME="/home/${APP_USER:?}"
+
+# Ignore "." and ".." to prevent errors when glob pattern for assets matches hidden files
+GLOBIGNORE=".:.."
+
+LOCAL_REPO_DIR=/tmp/local-repo
+
+log::group "Adding aur.archlinux.org to known hosts..."
+ssh-keyscan -v -t "$SSH_KEYSCAN_TYPES" aur.archlinux.org >>~/.ssh/known_hosts
+log::endgroup
+
+ci::import_ssh_key "$SSH_PRIVATE_KEY"
+ci::set_git_user "$COMMIT_USERNAME" "$COMMIT_EMAIL"
+
+log::group "Cloning $PKGNAME into $LOCAL_REPO_DIR"
+git clone -v "ssh://aur@aur.archlinux.org/${PKGNAME}.git" "$LOCAL_REPO_DIR"
+log::info "Changing directory to $LOCAL_REPO_DIR"
+cd "$LOCAL_REPO_DIR" || exit 1
+log::endgroup
+
+log::group "Copying files into $LOCAL_REPO_DIR"
+{
+    log::info "Copying $PKGBUILD"
+    cp -r "$PKGBUILD" PKGBUILD
+}
+# shellcheck disable=SC2086
+# Ignore quote rule because we need to expand glob patterns to copy $ASSETS
+if [[ -n $ASSETS ]]; then
+    log::info "Copying $ASSETS"
+    cp -rt . $ASSETS
+fi
+log::endgroup
+
+if [[ $UPDPKGSUMS == "true" ]]; then
+    log::group "Updating hashsums"
+    updpkgsums
+    log::endgroup
+fi
+
+if [[ $TEST == "true" ]]; then
+    log::group "Building package with makepkg"
+    read -r -a test_flags <<< "$TEST_FLAGS"
+    makepkg "${test_flags[@]}"
+    log::endgroup
+fi
+
+log::group "Generating .SRCINFO"
+makepkg --printsrcinfo >.SRCINFO
+log::endgroup
+
+if [[ -n $POST_PROCESS ]]; then
+    log::group "Executing post process commands"
+    eval "$POST_PROCESS"
+    log::endgroup
+fi
+
+log::group "Committing files to the repository"
+if [[ -z $ASSETS ]]; then
+    # When $ASSETS are not set, we can add just PKGBUILD and .SRCINFO
+    # This is to prevent unintended behaviour and maintain backwards compatibility
+    git add -fv PKGBUILD .SRCINFO
+else
+    # We cannot just re-use $ASSETS because it contains absolute paths outside repository
+    # But we can just add all files in the repository which should also include all $ASSETS
+    git add --all
+fi
+
+case "$ALLOW_EMPTY_COMMITS" in
+    true)
+        git commit --allow-empty --message "$COMMIT_MESSAGE"
+        ;;
+    false)
+        git diff-index --quiet HEAD || git commit --message "$COMMIT_MESSAGE"
+        ;;
+    *)
+        log::error "Invalid Value: inputs.allow_empty_commits is neither 'true' nor 'false': '$ALLOW_EMPTY_COMMITS'"
+        exit 2
+        ;;
+esac
+log::endgroup
+
+log::group "Publishing the repository"
+case "$FORCE_PUSH" in
+    true)
+        git push -v --force origin master
+        ;;
+    false)
+        git push -v origin master
+        ;;
+    *)
+        log::error "Invalid Value: inputs.force_push is neither 'true' nor 'false': '$FORCE_PUSH'"
+        exit 3
+        ;;
+esac
+log::endgroup

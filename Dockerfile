@@ -1,11 +1,28 @@
 FROM ghcr.io/archlinux/archlinux:base-20231107.0.190206
 
-RUN pacman -Suy --needed --noconfirm \
-  diffutils \
-  git \
-  github-cli \
-  jq \
-  pacman-contrib \
-  sudo
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm --needed --overwrite '*' \
+      diffutils \
+      git \
+      github-cli \
+      jq \
+      openssh \
+      pacman-contrib \
+      sudo
+      # fakeroot binutils gcc awk binutils xz \
+      # libarchive bzip2 coreutils file findutils \
+      # gettext grep gzip sed ncurses util-linux \
 
-RUN useradd -m -s /bin/bash nonroot
+ARG APP_ROOT=/app
+ARG BIN_DIR="${APP_ROOT}/scripts/bin"
+
+ENV APP_USER=builder
+ENV APP_ROOT="${APP_ROOT}"
+ENV PATH="${BIN_DIR}:${PATH}"
+
+COPY . "${APP_ROOT}"
+
+RUN docker_prepare
+
+RUN ln -s "$BIN_DIR/docker_entrypoint" /docker_entrypoint
+ENTRYPOINT ["/docker_entrypoint"]

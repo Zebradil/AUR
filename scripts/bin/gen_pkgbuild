@@ -52,9 +52,12 @@ if [[ $# -ne 1 ]]; then
     exit 1
 fi
 
+BIN_DIR="$(cd -- "$(dirname $(readlink -f -- "${BASH_SOURCE[0]}"))" &>/dev/null && pwd)"
+LIB_DIR="$BIN_DIR/../lib"
+source "$LIB_DIR/logger.sh"
+source "$LIB_DIR/pkgbuild.sh"
+
 ROOT="$(git rev-parse --show-toplevel)"
-source "$ROOT/scripts/lib/logger.sh"
-source "$ROOT/scripts/lib/pkgbuild.sh"
 
 AUR_PACKAGE="$1"
 

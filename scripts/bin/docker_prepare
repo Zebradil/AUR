@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -euo pipefail
+
+: "${APP_USER:?}"
+: "${APP_ROOT:?}"
+
+BIN_DIR="$(cd -- "$(dirname $(readlink -f -- "${BASH_SOURCE[0]}"))" &>/dev/null && pwd)"
+LIB_DIR="$BIN_DIR/../lib"
+source "$LIB_DIR/ga_logger.sh"
+
+log::group "Creating $APP_USER user"
+useradd --create-home --shell /bin/bash "$APP_USER"
+passwd --delete "$APP_USER"
+mkdir -p /etc/sudoers.d/
+echo "$APP_USER  ALL=(root) NOPASSWD:ALL" > "/etc/sudoers.d/$APP_USER"
+log::endgroup
+
+
+log::group 'Initializing SSH directory'
+cd "/home/$APP_USER" || exit 1
+mkdir -pv .ssh
+touch .ssh/known_hosts
+cp -v "$APP_ROOT/docker/ssh_config" .ssh/config
+chown -vR "$APP_USER:$APP_USER" .
+chmod -vR 600 .ssh/*
+log::endgroup
