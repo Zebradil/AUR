@@ -18,13 +18,13 @@ done
 
 if [[ ${#updated_packages[@]} -gt 0 ]]; then
     echo "Updated packages: ${updated_packages[*]}"
-    echo "::set-output name=updated_packages::$( \
+    echo "updated_packages=$( \
                 printf '%s\n' "${updated_packages[@]}" \
                   | jq -Rnc '[inputs]' \
-              )"
+              )" >> $GITHUB_OUTPUT
 else
     echo "No packages updated"
-    echo "::set-output name=updated_packages::[]"
+    echo "updated_packages=[]" >> $GITHUB_OUTPUT
 fi
 
-echo "::set-output name=last_sha::$(git rev-parse HEAD)"
+echo "last_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT

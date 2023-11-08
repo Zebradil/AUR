@@ -87,6 +87,7 @@ jobs:
           git config user.email "github-actions[bot]@github.com"
           git config user.name "GitHub Actions"
 
+          chown nonroot $GITHUB_OUTPUT
           chown -R nonroot .
           sudo --user=nonroot --preserve-env ./scripts/bin/ci/gen_pkgbuilds
   update-packages:
