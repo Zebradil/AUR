@@ -2,4 +2,6 @@
 
 set -euo pipefail
 
+echo '::warning::This script is the entrypoint for the docker container. It is not meant to be run manually.'
+
 exec runuser "${APP_USER:?}" --command "bash -l -c '$*'"
