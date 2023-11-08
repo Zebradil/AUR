@@ -6,8 +6,12 @@ for package in packages/*; do
     pp="${package##*/}"
     ./scripts/bin/gen_pkgbuild "$pp"
 
+    git status --porcelain "$package"
+    git diff-index HEAD "$package"
     git add "$package/PKGBUILD"
-    if git diff-index HEAD "$package"; then
+    git status --porcelain "$package"
+    git diff-index HEAD "$package"
+    if git diff-index --quiet HEAD "$package"; then
         echo "No changes for $pp"
     else
         git commit -m "chore: update $pp"
