@@ -13,11 +13,11 @@ sha256sums=()
 update_hashsums=true
 
 build() {
-    cd "$_name-$pkgver" || exit 1
+    cd "${pkgname#python-}-$pkgver" || exit 1
     python -m build --wheel --no-isolation
 }
 
 package() {
-    cd "$_name-$pkgver" || exit 1
+    cd "${pkgname#python-}-$pkgver" || exit 1
     python -m installer --destdir="$pkgdir" dist/*.whl
 }
