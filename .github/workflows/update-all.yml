@@ -82,8 +82,8 @@ jobs:
           # https://github.com/actions/checkout/issues/363
           git config --global --add safe.directory $(realpath .)
 
-          git config user.email "github-actions[bot]@github.com"
-          git config user.name "GitHub Actions"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
 
           chown nonroot $GITHUB_OUTPUT
           chown -R nonroot .
@@ -107,7 +107,7 @@ jobs:
           pkgname: ${{ matrix.package }}
           pkgbuild: ./packages/${{ matrix.package }}/PKGBUILD
           commit_message: "Automatic update"
-          commit_username: "GitHub Actions"
-          commit_email: "github-actions[bot]@github.com"
+          commit_username: "github-actions[bot]"
+          commit_email: "github-actions[bot]@users.noreply.github.com"
           allow_empty_commits: false
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
