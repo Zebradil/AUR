@@ -75,18 +75,10 @@ jobs:
         with:
           # For detecting changes
           depth: 1
-      - run: |
-          pwd
-          ls -la
       - name: Generate and commit PKGBUILDs
         id: generate_pkgbuilds
         shell: bash
         run: |
-          # https://github.com/actions/runner/issues/2058
-          #cd "${{ github.workspace }}"
-
-          cd "$GITHUB_WORKSPACE"
-
           # https://github.com/actions/checkout/issues/363
           git config --global --add safe.directory $(realpath .)
 
