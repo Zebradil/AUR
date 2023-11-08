@@ -9,6 +9,7 @@ for package in packages/*; do
     ./scripts/bin/gen_pkgbuild "$pp"
 
     git add "$package/PKGBUILD"
+    git diff-index HEAD "$package"
     if git diff-index --quiet HEAD "$package"; then
         echo "No changes for $pp"
     else
