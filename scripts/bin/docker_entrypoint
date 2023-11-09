@@ -4,6 +4,8 @@ set -euo pipefail
 
 if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
     echo '::notice::Running as user: '"${APP_USER:?}"
+    chown -R "${APP_USER:?}" "${GITHUB_WORKSPACE:?}"
+    chown -R "${APP_USER:?}" "${GITHUB_OUTPUT:?}"
     exec runuser "${APP_USER:?}" --command "bash -l $1"
 else
     echo 'Running as user: '"${APP_USER:?}"
