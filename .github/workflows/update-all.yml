@@ -74,9 +74,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Generate and commit PKGBUILDs
         id: generate_pkgbuilds
-        shell: bash
-        with:
-          entrypoint: /docker_entrypoint
+        shell: /docker_entrypoint {0}
         run: |
           # https://github.com/actions/checkout/issues/363
           git config --global --add safe.directory $(realpath .)
