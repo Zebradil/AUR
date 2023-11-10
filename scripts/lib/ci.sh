@@ -32,10 +32,13 @@ ci::assert_boolean() {
 
 ci::import_ssh_key(){
     local ssh_private_key="${1:?ssh_private_key is required}"
+    local filepath="${2:-$HOME/.ssh/aur}"
     log::group 'Importing private key'
-    echo "$ssh_private_key" >~/.ssh/aur
-    ssh-keygen -vy -f ~/.ssh/aur >~/.ssh/aur.pub
-    chmod -vR 600 ~/.ssh/aur*
-    log::info "SSH key fingerprint: $(ssh-keygen -lf ~/.ssh/aur)"
+    log::info "SSH key path: $filepath"
+    touch "$filepath"
+    chmod -vR 600 "$filepath"
+    echo "$ssh_private_key" >"$filepath"
+    ssh-keygen -vy -f ~/.ssh/aur >"${filepath}.pub"
+    log::info "SSH key fingerprint: $(ssh-keygen -lf "$filepath")"
     log::endgroup
 }
