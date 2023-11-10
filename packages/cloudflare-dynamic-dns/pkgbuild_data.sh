@@ -1,6 +1,7 @@
 # shellcheck disable=SC2034,SC2154
 
 pkgname=cloudflare-dynamic-dns
+provides=("${pkgname}")
 pkgver="$(pkgb:get_latest_github_release "$pkgname")"
 pkgdesc='Updates AAAA records at Cloudflare according to the current IPv6 address'
 url='https://github.com/Zebradil/cloudflare-dynamic-dns'
