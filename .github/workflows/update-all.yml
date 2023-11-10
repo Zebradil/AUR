@@ -88,7 +88,9 @@ jobs:
   update_packages:
     container: ${{ needs.build_and_push_image.outputs.image }}
     if: needs.generate_pkgbuilds.outputs.updated_packages != '[]'
-    needs: generate_pkgbuilds
+    needs:
+      - generate_pkgbuilds
+      - build_and_push_image
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
