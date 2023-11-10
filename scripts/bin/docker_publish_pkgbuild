@@ -10,7 +10,7 @@ source "$LIB_DIR/ci.sh"
 # Default values
 COMMIT_MESSAGE="Update PKGBUILD and .SRCINFO with GitHub Actions"
 SSH_KEYSCAN_TYPES="rsa,dsa,ecdsa,ed25519"
-TEST_FLAGS="--clean --cleanbuild --nodeps"
+BUILD_FLAGS="--clean --cleanbuild --nodeps"
 
 
 REQUIRED_INPUTS=(
@@ -27,8 +27,8 @@ done
 
 BOOLEAN_INPUTS=(
     ALLOW_EMPTY_COMMITS
+    BUILD
     FORCE_PUSH
-    TEST
     UPDPKGSUMS
 )
 
@@ -76,10 +76,10 @@ if [[ $UPDPKGSUMS == "true" ]]; then
     log::endgroup
 fi
 
-if [[ $TEST == "true" ]]; then
+if [[ $BUILD == "true" ]]; then
     log::group "Building package with makepkg"
-    read -r -a test_flags <<< "$TEST_FLAGS"
-    makepkg "${test_flags[@]}"
+    read -r -a build_flags <<< "$BUILD_FLAGS"
+    makepkg "${build_flags[@]}"
     log::endgroup
 fi
 
