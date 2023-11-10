@@ -29,6 +29,7 @@ BOOLEAN_INPUTS=(
     ALLOW_EMPTY_COMMITS
     BUILD
     FORCE_PUSH
+    SKIP_PUBLISH
     UPDPKGSUMS
 )
 
@@ -119,16 +120,15 @@ esac
 log::endgroup
 
 log::group "Publishing the repository"
-case "$FORCE_PUSH" in
-    true)
+if [[ $SKIP_PUBLISH == "false" ]]; then
+    if [[ $FORCE_PUSH == "true" ]]; then
+        log::info "Pushing to aur.archlinux.org with --force"
         git push -v --force origin master
-        ;;
-    false)
+    else
+        log::info "Pushing to aur.archlinux.org"
         git push -v origin master
-        ;;
-    *)
-        log::error "Invalid Value: inputs.force_push is neither 'true' nor 'false': '$FORCE_PUSH'"
-        exit 3
-        ;;
-esac
+    fi
+else
+    log::info "Skipping publishing"
+fi
 log::endgroup
