@@ -105,18 +105,13 @@ else
     git add --all
 fi
 
-case "$ALLOW_EMPTY_COMMITS" in
-    true)
-        git commit --allow-empty --message "$COMMIT_MESSAGE"
-        ;;
-    false)
-        git diff-index --quiet HEAD || git commit --message "$COMMIT_MESSAGE"
-        ;;
-    *)
-        log::error "Invalid Value: inputs.allow_empty_commits is neither 'true' nor 'false': '$ALLOW_EMPTY_COMMITS'"
-        exit 2
-        ;;
-esac
+if [[ $ALLOW_EMPTY_COMMITS == "true" ]]; then
+    log::info "Allowing empty commits"
+    git commit --allow-empty --message "$COMMIT_MESSAGE"
+else
+    log::info "Not allowing empty commits"
+    git diff-index --quiet HEAD || git commit --message "$COMMIT_MESSAGE"
+fi
 log::endgroup
 
 log::group "Publishing the repository"
