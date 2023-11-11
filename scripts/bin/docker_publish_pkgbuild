@@ -46,7 +46,7 @@ GLOBIGNORE=".:.."
 LOCAL_REPO_DIR=/tmp/local-repo
 
 log::group "Adding aur.archlinux.org to known hosts..."
-ssh-keyscan -v -t "$SSH_KEYSCAN_TYPES" aur.archlinux.org >>~/.ssh/known_hosts
+ssh-keyscan -t "$SSH_KEYSCAN_TYPES" aur.archlinux.org >>~/.ssh/known_hosts
 log::endgroup
 
 ci::import_ssh_key "$SSH_PRIVATE_KEY"
