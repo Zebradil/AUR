@@ -105,6 +105,7 @@ jobs:
         shell: docker_entrypoint {0}
         env:
           ALLOW_EMPTY_COMMITS: "false"
+          BUILD: "true"
           COMMIT_EMAIL: "github-actions[bot]@users.noreply.github.com"
           COMMIT_MESSAGE: "Automatic update"
           COMMIT_USERNAME: "github-actions[bot]"
