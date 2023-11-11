@@ -11,6 +11,7 @@ source "$LIB_DIR/ci.sh"
 ASSETS=""
 BUILD_FLAGS="--clean --cleanbuild --nodeps"
 COMMIT_MESSAGE="Update PKGBUILD and .SRCINFO with GitHub Actions"
+POST_PROCESS=""
 SSH_KEYSCAN_TYPES="rsa,dsa,ecdsa,ed25519"
 
 
