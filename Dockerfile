@@ -1,7 +1,10 @@
 FROM ghcr.io/archlinux/archlinux:base-20231107.0.190206
 
-RUN pacman -Syu --noconfirm
-RUN pacman -S --noconfirm --needed --overwrite '*' \
+RUN --mount=type=cache,target=/var/cache/pacman/pkg \
+  pacman -Syu --noconfirm
+RUN --mount=type=cache,target=/var/cache/pacman/pkg \
+  pacman -S --noconfirm --needed --overwrite '*' \
+      binutils \
       diffutils \
       git \
       github-cli \
@@ -9,7 +12,7 @@ RUN pacman -S --noconfirm --needed --overwrite '*' \
       openssh \
       pacman-contrib \
       sudo
-      # fakeroot binutils gcc awk binutils xz \
+      # fakeroot gcc awk binutils xz \
       # libarchive bzip2 coreutils file findutils \
       # gettext grep gzip sed ncurses util-linux \
 
