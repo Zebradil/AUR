@@ -54,22 +54,23 @@ ci::set_git_user "$COMMIT_USERNAME" "$COMMIT_EMAIL"
 
 log::group "Cloning $PKGNAME into $LOCAL_REPO_DIR"
 git clone -v "ssh://aur@aur.archlinux.org/${PKGNAME}.git" "$LOCAL_REPO_DIR"
-log::info "Changing directory to $LOCAL_REPO_DIR"
-cd "$LOCAL_REPO_DIR" || exit 1
 log::endgroup
 
 log::group "Copying files into $LOCAL_REPO_DIR"
 {
     log::info "Copying $PKGBUILD"
-    cp -r "$PKGBUILD" PKGBUILD
+    cp -r "$PKGBUILD" "$LOCAL_REPO_DIR/PKGBUILD"
 }
 # shellcheck disable=SC2086
 # Ignore quote rule because we need to expand glob patterns to copy $ASSETS
 if [[ -n $ASSETS ]]; then
     log::info "Copying $ASSETS"
-    cp -rt . $ASSETS
+    cp -rt "$LOCAL_REPO_DIR/" $ASSETS
 fi
 log::endgroup
+
+log::debug "Changing directory to $LOCAL_REPO_DIR"
+cd "$LOCAL_REPO_DIR" || exit 1
 
 if [[ $UPDPKGSUMS == "true" ]]; then
     log::group "Updating hashsums"
