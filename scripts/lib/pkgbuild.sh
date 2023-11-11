@@ -9,8 +9,8 @@ EOF
 }
 
 pkgb:get_latest_github_release() {
-curl -fsSL \
-    "https://api.github.com/repos/zebradil/$1/releases/latest" \
-    --header "Authorization: Bearer ${GITHUB_TOKEN:?}" \
-    | jq -r '.tag_name'
+    curl -fsSL \
+        "https://api.github.com/repos/$1/releases/latest" \
+        --header "Authorization: Bearer ${GITHUB_TOKEN:?}" \
+        | jq -r '.tag_name'
 }

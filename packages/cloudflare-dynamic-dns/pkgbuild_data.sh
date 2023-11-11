@@ -1,14 +1,15 @@
 # shellcheck disable=SC2034,SC2154
 
 pkgname=cloudflare-dynamic-dns
+_repo="zebradil/$pkgname"
 provides=("${pkgname}")
-pkgver="$(pkgb:get_latest_github_release "$pkgname")"
+pkgver="$(pkgb:get_latest_github_release "$_repo")"
 pkgdesc='Updates AAAA records at Cloudflare according to the current IPv6 address'
-url='https://github.com/Zebradil/cloudflare-dynamic-dns'
+url="https://github.com/$_repo"
 license=('MIT')
 makedepends=('go')
-source=("${pkgname}-${pkgver}::https://github.com/zebradil/${pkgname}/archive/${pkgver}.tar.gz")
-sha256sums=()
+source=("${pkgname}-${pkgver}::https://github.com/$_repo/archive/${pkgver}.tar.gz")
+sha256sums=('SKIP')
 update_hashsums=true
 
 prepare() {
