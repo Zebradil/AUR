@@ -110,7 +110,6 @@ jobs:
           COMMIT_USERNAME: "github-actions[bot]"
           PKGBUILD: ./packages/${{ matrix.package }}/PKGBUILD
           PKGNAME: ${{ matrix.package }}
-          SKIP_PUBLISH: "true"
           SSH_PRIVATE_KEY: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
         run: |
           set -euo pipefail
