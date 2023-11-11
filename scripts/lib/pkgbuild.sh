@@ -21,6 +21,15 @@ pkgb:get_latest_github_release() {
         | jq -r '.tag_name'
 }
 
+pkgb:get_latest_github_tag() {
+    curl -fsSL \
+        "https://api.github.com/repos/$1/tags" \
+        --header "Authorization: Bearer ${GITHUB_TOKEN:?}" \
+        | jq -r '.[] | .name' \
+        | sort -V \
+        | tail -1
+}
+
 pkgb:print_arr_by_name() {
     local name="$1"
     local -n arr="$name"
