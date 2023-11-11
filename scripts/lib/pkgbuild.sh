@@ -1,6 +1,12 @@
 pkgb:header() {
+    local -n _contributors="$1"
+    echo '# Maintainer: German Lashevich <german.lashevich@gmail.com>'
+    if [[ -n "$_contributors" ]]; then
+        for contributor in "${_contributors[@]}"; do
+            echo "# Contributor: $contributor"
+        done
+    fi
     cat <<EOF
-# Maintainer: German Lashevich <german.lashevich@gmail.com>
 #
 # Source: https://github.com/zebradil/aur
 #

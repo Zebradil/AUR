@@ -89,7 +89,8 @@ tmp_pkgbuild="$(mktemp --suffix="_${AUR_PACKAGE}.pkgbuild")"
 
 log::debug "Generating $tmp_pkgbuild..."
 
-pkgb:header > "$tmp_pkgbuild"
+contributors=("${contributors[@]:-}")
+pkgb:header contributors > "$tmp_pkgbuild"
 
 tmp_pkgver="${pkgver:-$(date +%Y%m%d)}"
 tmp_pkgrel="${pkgrel:-1}"
