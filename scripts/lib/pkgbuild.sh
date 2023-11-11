@@ -14,3 +14,11 @@ pkgb:get_latest_github_release() {
         --header "Authorization: Bearer ${GITHUB_TOKEN:?}" \
         | jq -r '.tag_name'
 }
+
+pkgb:print_arr_by_name() {
+    local name="$1"
+    local -n arr="$name"
+    if [[ -n "${arr:-}" ]]; then
+        echo "$name=(${arr[@]})"
+    fi
+}

@@ -106,11 +106,19 @@ pkgdesc="${pkgdesc:?}"
 url="${url:?}"
 arch=(${arch[@]:-any})
 license=(${license[@]:-unknown})
-groups=(${groups[@]:-})
-backup=(${backup[@]:-})
 EOF
 
-arch_specific_fields=(
+arrays=(
+    groups
+    backup
+)
+
+for field in "${arrays[@]}"; do
+    pkgb:print_arr_by_name "$field"
+done >>"$tmp_pkgbuild"
+
+# list of arrays that can be arch-specific
+arched_arrays=(
     depends
     makedepends
     checkdepends
@@ -122,13 +130,10 @@ arch_specific_fields=(
     sha256sums
 )
 
-for field in "${arch_specific_fields[@]}"; do
-    eval "echo \"${field}=(\${${field}[@]:-})\""
-
+for field in "${arched_arrays[@]}"; do
+    pkgb:print_arr_by_name "$field"
     for a in "${arch[@]:-}"; do
-        if [[ -n $a ]]; then
-            eval "echo \"${field}_${a}=(\${${field}_${a}[@]:-})\""
-        fi
+        pkgb:print_arr_by_name "${field}_${a}"
     done
 done >>"$tmp_pkgbuild"
 
