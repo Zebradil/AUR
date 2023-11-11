@@ -23,7 +23,7 @@ ENV APP_USER=builder
 ENV APP_ROOT="${APP_ROOT}"
 ENV PATH="${BIN_DIR}:${PATH}"
 
-COPY . "${APP_ROOT}"
+COPY --link . "${APP_ROOT}"
 
 RUN docker_prepare
 
