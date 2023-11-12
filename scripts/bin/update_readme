@@ -1,0 +1,88 @@
+#!/bin/bash
+
+set -euo pipefail
+
+rdm:usage(){
+    cat <<EOF
+Usage: $(basename "$0") FILE MAINTAINER
+
+Updates a given markdown file by running a number of injectors on it.
+
+Arguments:
+  FILE        Markdown file to update.
+  MAINTAINER  Maintainer to filter packages by.
+EOF
+}
+
+# Updates a given markdown file by running a number of injectors on it.
+# Args:
+#  $1: Markdown file to update.
+#  $2: Maintainer to filter packages by.
+rdm:update(){
+    if [[ $# -ne 2 ]]; then
+        rdm:usage
+        exit 1
+    fi
+
+    local file="${1:?Specify file}"
+    local maintainer="${2:?Specify maintainer}"
+    local tmp_file="$(mktemp --suffix='.md')"
+    cp "$file" "$tmp_file"
+
+    if [[ -n "$maintainer" ]]; then
+        rdm:inject_maintained_packages "$tmp_file" "$maintainer"
+    fi
+
+    mv "$tmp_file" "$file"
+}
+
+# Injects a list of maintained packages maintained by a specified user into a markdown file.
+# Args:
+#  $1: Markdown file to update.
+#  $2: Maintainer to filter packages by.
+rdm:inject_maintained_packages(){
+    local begin_marker='<!-- BEGIN MAINTAINED_PACKAGES -->'
+    local end_marker='<!-- END MAINTAINED_PACKAGES -->'
+
+    local file="${1:?Specify file}"
+    local maintainer="${2:?Specify maintainer}"
+    local tmp_file="$(mktemp --suffix='.packages.md')"
+
+    sed -n "1,/$begin_marker/p" "$file" > "$tmp_file"
+
+    {
+        echo "| Package | Version | Upstream | Description |"
+        echo "| ------- | ------- | -------- | ----------- |"
+    } >> "$tmp_file"
+
+    while read -r package_json; do
+        local description name url version
+        {
+            read -r description
+            read -r name
+            read -r url
+            read -r version
+        } < <(jq --raw-output '.Description, .Name, .URL, .Version' <<<"$package_json")
+        local aur_url="https://aur.archlinux.org/packages/$name"
+        echo "| [$name]($aur_url) | $version | [upstream]($url) | $description |" >> "$tmp_file"
+    done < <(rdm:get_maintained_packages "$maintainer")
+
+    sed -n "/$end_marker/,\$p" "$file" >> "$tmp_file"
+    cp "$tmp_file" "$file"
+    rm "$tmp_file"
+}
+
+# Gets a list of maintained packages maintained by a specified user.
+# Returns JSON objects.
+# Args:
+#  $1: Maintainer to filter packages by.
+rdm:get_maintained_packages(){
+    local maintainer="${1:?Specify maintainer}"
+    curl -fsSL "https://aur.archlinux.org/rpc?v=5&type=search&by=maintainer&arg=$maintainer" \
+        | jq --compact-output '.results[]'
+}
+
+# Execute the main function if the script is not being sourced.
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    rdm:update "$@"
+fi
