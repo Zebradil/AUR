@@ -10,8 +10,11 @@ _repo="zebradil/$_pkgname"
 _default_version=2.0.1+i3_5
 
 pkgname="$_pkgname-git"
+
 pkgver="$(pkgb:get_latest_github_tag "$_repo")"
 pkgver="${pkgver:-$_default_version}"
+pkgver="${pkgver//_/-}"
+
 pkgrel=1
 pkgdesc='Program that allows to query and change the XKB layout state (with i3wm auto-switch mode)'
 conflicts=('xkb-switch' 'xkb-switch-i3')
