@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 pkgb:header() {
     local -n _contributors="$1"
     echo '# Maintainer: German Lashevich <german.lashevich@gmail.com>'
