@@ -4,22 +4,13 @@ RUN --mount=type=cache,target=/var/cache/pacman/pkg \
   pacman -Syu --noconfirm
 RUN --mount=type=cache,target=/var/cache/pacman/pkg \
   pacman -S --noconfirm --needed --overwrite '*' \
-      binutils \
+      base-devel \
       diffutils \
       git \
       github-cli \
       jq \
       openssh \
-      pacman-contrib \
-      sudo
-      # fakeroot gcc awk binutils xz \
-      # libarchive bzip2 coreutils file findutils \
-      # gettext grep gzip sed ncurses util-linux \
-
-# Make dependencies of packages
-RUN --mount=type=cache,target=/var/cache/pacman/pkg \
-  pacman -S --noconfirm --needed --overwrite '*' \
-      cmake
+      pacman-contrib
 
 ARG APP_ROOT=/app
 ARG BIN_DIR="${APP_ROOT}/scripts/bin"
