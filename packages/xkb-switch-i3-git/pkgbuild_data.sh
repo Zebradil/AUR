@@ -22,8 +22,21 @@ provides=('xkb-switch')
 arch=('i686' 'x86_64')
 url="https://github.com/$_repo"
 license=('MIT')
-depends=('libx11' 'libxkbfile' 'i3-wm' 'libsigc++' 'jsoncpp')
-makedepends=('git' 'cmake')
+depends=(
+    'i3-wm'
+    'jsoncpp'
+    'libsigc++'
+    'libx11'
+    'libxkbfile'
+)
+makedepends=(
+    'cmake'
+    'git'
+    'i3-wm'
+    'libsigc++'
+    'libx11'
+    'libxkbfile'
+)
 source=(
     "git+https://github.com/$_repo.git#branch=master"
     "git+https://github.com/drmgc/i3ipcpp.git"

@@ -16,8 +16,21 @@ provides=('xkb-switch')
 arch=('i686' 'x86_64')
 url='https://github.com/zebradil/xkb-switch-i3'
 license=('MIT')
-depends=('libx11' 'libxkbfile' 'i3-wm' 'libsigc++' 'jsoncpp')
-makedepends=('git' 'cmake')
+depends=(
+    'i3-wm'
+    'jsoncpp'
+    'libsigc++'
+    'libx11'
+    'libxkbfile'
+)
+makedepends=(
+    'cmake'
+    'git'
+    'i3-wm'
+    'libsigc++'
+    'libx11'
+    'libxkbfile'
+)
 source=(
     "${pkgname}-${pkgver}.tar.gz::https://github.com/zebradil/${pkgname}/archive/${pkgver//_/-}.tar.gz"
     "i3ipcpp-${_i3ipcpp_ver}.tar.gz::https://api.github.com/repos/drmgc/i3ipcpp/tarball/${_i3ipcpp_ver}"
