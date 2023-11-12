@@ -17,5 +17,5 @@ update_hashsums=true
 
 package() {
     _binname=totp
-    install -Dm755 "${srcdir}/${_binname}-linux" "${pkgdir}/usr/bin/${_binname}"
+    install -Dm755 "${srcdir}/${pkgname}-${pkgver}" "${pkgdir}/usr/bin/${_binname}"
 }
