@@ -17,7 +17,7 @@ for package in packages/*; do
     git diff
     if git diff-index --quiet HEAD "$package"; then
         log::info "No changes for $pp, check if the AUR version differs from the local version"
-        aur_pkgbuild="/tmp/${pp}_aur/PKGBUILD"
+        aur_pkgbuild="/tmp/aur.$pp.PKGBUILD"
         aur:download_file "$pp" PKGBUILD > "$aur_pkgbuild"
         if ! diff -q "$package/PKGBUILD" "$aur_pkgbuild"; then
             log::info "AUR version differs from the local version, update is required"
