@@ -46,11 +46,12 @@ pkgb:get_github_info(){
             "pkgver='" + .latestRelease.tagName + "'",
             "pkgdesc='" + .description + "'",
             "url='" + .homepageUrl + "'",
+            "_github_repo_url='" + .url + "'",
             "license=('" + .licenseInfo.key + "')"
 EOF
     )
 
     gh repo view "${1:?GitHub repo is required}" \
-        --json description,homepageUrl,latestRelease,licenseInfo \
+        --json description,homepageUrl,latestRelease,licenseInfo,url \
         --jq "$jq_filter"
 }

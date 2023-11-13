@@ -7,6 +7,7 @@ _gh_info=$(pkgb:get_github_info "$_github_repo")
 if [[ -n "$_gh_info" ]]; then
     eval "$_gh_info"
     pkgver="${pkgver#v}"
+    url="${url:-$_github_repo_url}"
 else
     log::error "Failed to get info from GitHub"
 fi
