@@ -51,8 +51,8 @@ rdm:inject_maintained_packages(){
     sed -n "1,/$begin_marker/p" "$file" > "$tmp_file"
 
     {
-        echo "| Package | Version | Upstream | Description |"
-        echo "| ------- | ------- | -------- | ----------- |"
+        echo "| Package | Version | AUR | Description |"
+        echo "| ------- | ------- | --- | ----------- |"
     } >> "$tmp_file"
 
     while read -r package_json; do
@@ -64,7 +64,7 @@ rdm:inject_maintained_packages(){
             read -r version
         } < <(jq --raw-output '.Description, .Name, .URL, .Version' <<<"$package_json")
         local aur_url="https://aur.archlinux.org/packages/$name"
-        echo "| [$name]($aur_url) | $version | [upstream]($url) | $description |" >> "$tmp_file"
+        echo "| [$name]($url) | $version | [link]($aur_url) | $description |" >> "$tmp_file"
     done < <(rdm:get_maintained_packages "$maintainer")
 
     sed -n "/$end_marker/,\$p" "$file" >> "$tmp_file"
