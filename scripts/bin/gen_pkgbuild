@@ -122,7 +122,14 @@ arched_arrays=(
     provides
     replaces
     source
+    b2sums
+    sha512sums
+    sha384sums
     sha256sums
+    sha224sums
+    sha1sums
+    md5sums
+    cksums
 )
 
 for field in "${arched_arrays[@]}"; do

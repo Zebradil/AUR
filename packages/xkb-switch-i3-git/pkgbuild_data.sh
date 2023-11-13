@@ -41,7 +41,7 @@ source=(
     "git+https://github.com/$_repo.git#branch=master"
     "git+https://github.com/drmgc/i3ipcpp.git"
 )
-sha1sums=(
+sha256sums=(
     'SKIP'
     'SKIP'
 )
