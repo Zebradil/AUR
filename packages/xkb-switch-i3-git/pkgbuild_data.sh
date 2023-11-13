@@ -37,7 +37,6 @@ makedepends=(
     'libx11'
     'libxkbfile'
 )
-_z_build_opts=(--noconfirm --noprogressbar --cleanbuild --clean)
 source=(
     "git+https://github.com/$_repo.git#branch=master"
     "git+https://github.com/drmgc/i3ipcpp.git"

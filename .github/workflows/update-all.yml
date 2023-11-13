@@ -106,6 +106,7 @@ jobs:
         env:
           ALLOW_EMPTY_COMMITS: "false"
           BUILD: "true"
+          BUILD_FLAGS: "--clean --cleanbuild --syncdeps --noconfirm --noprogressbar"
           COMMIT_EMAIL: "github-actions[bot]@users.noreply.github.com"
           COMMIT_MESSAGE: "Automatic update"
           COMMIT_USERNAME: "github-actions[bot]"
