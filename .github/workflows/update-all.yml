@@ -127,14 +127,11 @@ jobs:
       - update_packages
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: HEAD
+          # Checkout the latest state of the repository
+          ref: "${{ github.ref_name }}"
       - name: Update README
         shell: docker_entrypoint {0}
         env:
