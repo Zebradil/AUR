@@ -143,6 +143,12 @@ done >>"$tmp_pkgbuild"
     fi
 } >>"$tmp_pkgbuild"
 
+if [[ -n ${_z_update_hashsums-} ]]; then
+    log::debug "Hashsums update is requested, running updpkgsums..."
+    updpkgsums "$tmp_pkgbuild"
+    unset _z_update_hashsums
+fi
+
 if [[ -n ${_z_build-} ]]; then
     log::debug "Build is requested, setting _z_build_opts to ${_z_build_opts:-${BUILD_OPTS[*]}}..."
     _z_build_opts="${_z_build_opts:-${BUILD_OPTS[*]}}"
