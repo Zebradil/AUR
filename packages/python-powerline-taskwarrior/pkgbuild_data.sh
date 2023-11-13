@@ -17,7 +17,7 @@ makedepends=(
     python-wheel
 )
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('')
 _z_update_hashsums=true
 
 build() {

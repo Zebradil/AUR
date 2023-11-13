@@ -12,7 +12,7 @@ arch=('x86_64')
 url="https://github.com/$_repo"
 license=('MIT')
 source=("${pkgname}-${pkgver}::https://github.com/$_repo/releases/download/${pkgver}/$_binname-linux")
-sha256sums=('SKIP')
+sha256sums=('')
 _z_update_hashsums=true
 
 package() {

@@ -37,10 +37,7 @@ source=(
 )
 # Old approach, reactivate when a new version of i3ipcpp is released
 # "i3ipcpp-${_i3ipcpp_ver}.tar.gz::https://github.com/drmgc/i3ipcpp/archive/v${_i3ipcpp_ver}.tar.gz"
-sha256sums=(
-    'SKIP'
-    'SKIP'
-)
+sha256sums=('' '')
 _z_update_hashsums=true
 
 build() {

@@ -9,7 +9,7 @@ url="https://github.com/$_repo"
 license=('MIT')
 makedepends=('go')
 source=("${pkgname}-${pkgver}::https://github.com/$_repo/archive/${pkgver}.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('')
 _z_update_hashsums=true
 
 prepare() {
