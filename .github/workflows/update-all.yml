@@ -119,7 +119,8 @@ jobs:
           docker_publish_pkgbuild
   update_readme:
     container: ${{ needs.build_and_push_image.outputs.image }}
-    if: needs.generate_pkgbuilds.outputs.updated_packages != '[]'
+    # if: needs.generate_pkgbuilds.outputs.updated_packages != '[]'
+    if: ${{ always() }}
     needs:
       - build_and_push_image
       - generate_pkgbuilds
