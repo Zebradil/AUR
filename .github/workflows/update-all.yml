@@ -117,3 +117,34 @@ jobs:
           set -euo pipefail
 
           docker_publish_pkgbuild
+  update_readme:
+    container: ${{ needs.build_and_push_image.outputs.image }}
+    if: needs.generate_pkgbuilds.outputs.updated_packages != '[]'
+    needs:
+      - build_and_push_image
+      - generate_pkgbuilds
+      - update_packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: HEAD
+      - name: Update README
+        shell: docker_entrypoint {0}
+        env:
+          MAINTAINER: zebradil
+          README_FILE: README.md
+        run: |
+          set -euo pipefail
+
+          update_readme "$README_FILE" "$MAINTAINER"
+
+          # https://github.com/actions/checkout/issues/363
+          git config --global --add safe.directory $(realpath .)
+
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          git add "$README_FILE"
+          git diff-index --quiet HEAD || git commit -m "Automatic update of README"
