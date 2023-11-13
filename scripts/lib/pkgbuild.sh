@@ -39,3 +39,18 @@ pkgb:print_arr_by_name() {
         echo "$name=(${arr[@]})"
     fi
 }
+
+pkgb:get_github_info(){
+    local jq_filter=$(
+        cat <<EOF
+            "pkgver='" + .latestRelease.tagName + "'",
+            "pkgdesc='" + .description + "'",
+            "url='" + .homepageUrl + "'",
+            "license=('" + .licenseInfo.key + "')"
+EOF
+    )
+
+    gh repo view "${1:?GitHub repo is required}" \
+        --json description,homepageUrl,latestRelease,licenseInfo \
+        --jq "$jq_filter"
+}
