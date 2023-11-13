@@ -1,4 +1,4 @@
-# shellcheck disable=SC2034,SC2154
+# shellcheck shell=bash
 
 CHANNEL=regular
 

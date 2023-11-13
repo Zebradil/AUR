@@ -1,4 +1,4 @@
-# shellcheck disable=SC2034,SC2154
+# shellcheck shell=bash disable=SC2034,SC2154
 
 # Source code:
 # - https://github.com/carvel-dev/imgpkg
