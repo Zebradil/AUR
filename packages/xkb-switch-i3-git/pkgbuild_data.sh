@@ -13,7 +13,7 @@ pkgname="$_pkgname-git"
 
 pkgver="$(pkgb:get_latest_github_tag "$_repo")"
 pkgver="${pkgver:-$_default_version}"
-pkgver="${pkgver//_/-}"
+pkgver="${pkgver//-/_}"
 
 pkgrel=1
 pkgdesc='Program that allows to query and change the XKB layout state (with i3wm auto-switch mode)'
@@ -48,7 +48,7 @@ sha1sums=(
 
 pkgver() {
     cd "${pkgname%-git}"
-    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+    git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/_/g'
 }
 
 build() {
