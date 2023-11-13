@@ -31,6 +31,7 @@ makedepends=(
     'libx11'
     'libxkbfile'
 )
+_z_build_opts=(--noconfirm --noprogressbar --cleanbuild --clean)
 source=(
     "${pkgname}-${pkgver}.tar.gz::https://github.com/zebradil/${pkgname}/archive/${pkgver//_/-}.tar.gz"
     "i3ipcpp-${_i3ipcpp_ver}.tar.gz::https://api.github.com/repos/drmgc/i3ipcpp/tarball/${_i3ipcpp_ver}"
@@ -41,7 +42,7 @@ sha256sums=(
     'SKIP'
     'SKIP'
 )
-update_hashsums=true
+_z_update_hashsums=true
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver//[_+]/-}"

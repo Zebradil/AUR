@@ -40,6 +40,32 @@ for input in "${BOOLEAN_INPUTS[@]}"; do
     ci::assert_boolean "$input" "${!input}"
 done
 
+# Overrides from the PKGBUILD file
+ALLOWED_Z_VAR_NAMES=(
+    _z_build
+    _z_build_opts
+    _z_update_hashsums
+)
+ALLOWED_Z_VAR_NAMES="${ALLOWED_Z_VAR_NAMES[*]}"
+Z_VARS="$(grep -E "^(${ALLOWED_Z_VAR_NAMES// /|})=" "$PKGBUILD" || true)"
+
+while read -r z_var; do
+    log::debug "Evaluating $z_var"
+    eval "$z_var"
+done <<<"$Z_VARS"
+
+if [[ ${_z_build:-false} == "true" ]]; then
+    BUILD=true
+fi
+
+if [[ -n ${_z_build_opts:-} ]]; then
+    BUILD_FLAGS="${_z_build_opts[*]}"
+fi
+
+if [[ ${_z_update_hashsums:-false} == "true" ]]; then
+    UPDPKGSUMS=true
+fi
+
 export HOME="/home/${APP_USER:?}"
 
 # Ignore "." and ".." to prevent errors when glob pattern for assets matches hidden files

@@ -13,7 +13,7 @@ license=('MIT')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}::https://github.com/$_repo/archive/${pkgver}.tar.gz")
 sha256sums=('SKIP')
-update_hashsums=true
+_z_update_hashsums=true
 
 build() {
     cd "${pkgname}-${pkgver}"

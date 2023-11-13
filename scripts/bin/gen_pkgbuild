@@ -7,6 +7,7 @@ fi
 set -euo pipefail
 
 PKG_DIR=packages
+BUILD_OPTS=(--noconfirm --noprogressbar --cleanbuild --clean --nodeps)
 
 help() {
     cat <<EOF
@@ -17,33 +18,26 @@ Generates a PKGBUILD file for the given AUR package.
 AUR_PACKAGE is one of the directories in the $PKG_DIR/ directory.
             It must contain a pkgbuild_data.sh file.
 
-pkgbuild_data.sh is a bash script that defines the following variables:
-  - pkgname*
-  - pkgver
-  - pkgrel
-  - pkgdesc*
-  - url*
-  - license
-  - arch
-  - groups
-  - backup
-  - depends
-  - makedepends
-  - checkdepends
-  - optdepends
-  - conflicts
-  - provides
-  - replaces
-  - source
-  - sha256sums
-  - update_hashsums (instructs to run updpkgsums on the generated PKGBUILD)
-and the following functions:
-  - prepare
-  - build
-  - check
-  - package*
-
-* - required
+pkgbuild_data.sh is a bash script that defines variables and functions
+supported by the PKGBUILD file. It must define the following variables:
+  - pkgname
+  - pkgdesc
+  - url
+  - package (function)
+The following variables are set to default values:
+  - pkgver (date in YYYYMMDD format)
+  - pkgrel (1, incremented if pkgver is the same as in the existing PKGBUILD)
+  - license (unknown)
+  - arch (any)
+The following integrity arrays are recognized:
+The following switches are accepted:
+Variables prefixed with _z_ are always added to the generated PKGBUILD. They
+can be used in PKGBUILD functions. For example, _z_name can be used to refer
+to the tool name across all functions. The following variables modify the
+publishing process:
+  - _z_update_hashsums (instructs to run updpkgsums on the generated PKGBUILD)
+  - _z_build (testes the generated PKGBUILD with makepkg)
+  - _z_build_opts (options to pass to makepkg, default: ${BUILD_OPTS[*]})
 EOF
 }
 
@@ -149,11 +143,18 @@ done >>"$tmp_pkgbuild"
     fi
 } >>"$tmp_pkgbuild"
 
-if [[ -n ${update_hashsums-} ]]; then
-    log::info "Updating hashsums..."
-    updpkgsums "$tmp_pkgbuild"
+if [[ -n ${_z_build-} ]]; then
+    log::debug "Build is requested, setting _z_build_opts to ${_z_build_opts:-${BUILD_OPTS[*]}}..."
+    _z_build_opts="${_z_build_opts:-${BUILD_OPTS[*]}}"
 fi
 
+# If there are _z_* variables defined, add them to the generated PKGBUILD
+zvars="$(declare -p | sed -rn 's/^declare -..? (_z_[^=]+)=(.+)/\1=\2/p')"
+if [[ -n "$zvars" ]]; then
+    log::debug "Adding _z_* variables to the generated PKGBUILD..."
+    echo -e "\n\n# Custom variables\n" >>"$tmp_pkgbuild"
+    echo "$zvars" >>"$tmp_pkgbuild"
+fi
 
 if diff -q \
     <(sed '/^pkgver=/d; /^pkgrel=/d' "$dest_pkgbuild") \

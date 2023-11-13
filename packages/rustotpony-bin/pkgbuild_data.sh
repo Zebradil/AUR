@@ -13,7 +13,7 @@ url="https://github.com/$_repo"
 license=('MIT')
 source=("${pkgname}-${pkgver}::https://github.com/$_repo/releases/download/${pkgver}/$_binname-linux")
 sha256sums=('SKIP')
-update_hashsums=true
+_z_update_hashsums=true
 
 package() {
     _binname=totp
