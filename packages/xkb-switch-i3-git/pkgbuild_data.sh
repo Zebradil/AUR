@@ -55,7 +55,11 @@ build() {
     cd "${srcdir}/${pkgname%-git}"
     git submodule init
     git config "submodule.i3ipc++.url" "${srcdir}/i3ipcpp"
-    git submodule update
+    # From git 2.38.1-1, "git submodule" in PKGBUILD does not work
+    # unless we change the git config "protocol.file.allow" [1,2].
+    # [1] https://bugs.archlinux.org/task/76255
+    # [2] https://bbs.archlinux.org/viewtopic.php?pid=2063104#p2063104
+    git -c protocol.file.allow=always submodule update
 
     cmake -DCMAKE_INSTALL_PREFIX=/usr .
     make
