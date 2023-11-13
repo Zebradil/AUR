@@ -7,7 +7,7 @@
 # shellcheck disable=SC2034,SC2154
 pkgname=xkb-switch-i3
 pkgver=2.0.1+i3_5
-pkgrel=3
+pkgrel=4
 pkgdesc="Program that allows to query and change the XKB layout state (with i3wm auto-switch mode)"
 url="https://github.com/zebradil/xkb-switch-i3"
 arch=(i686 x86_64)
@@ -34,5 +34,4 @@ package ()
 
 # Custom variables
 
-_z_build_opts=([0]="--noconfirm" [1]="--noprogressbar" [2]="--cleanbuild" [3]="--clean")
 _z_update_hashsums="true"
