@@ -149,4 +149,6 @@ jobs:
           git config user.name "github-actions[bot]"
 
           git add "$README_FILE"
-          git diff-index --quiet HEAD || git commit -m "Automatic update of README"
+          git diff-index --quiet HEAD \
+            || git commit -m "Automatic update of README" \
+            && git push origin HEAD:${{ github.ref_name }}
