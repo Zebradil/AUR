@@ -143,7 +143,7 @@ jobs:
           update_readme "$README_FILE" "$MAINTAINER"
 
           git add "$README_FILE"
-          if git diff-index --quiet HEAD; then
+          if git diff --cached --quiet; then
             echo "No changes to the README"
             exit 0
           fi
