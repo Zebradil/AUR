@@ -13,7 +13,6 @@ for package in packages/*; do
     pp="${package##*/}"
     ./scripts/bin/gen_pkgbuild "$pp"
 
-    git add "$package/PKGBUILD"
     if git diff-index --quiet HEAD "$package"; then
         log::info "No changes for $pp, check if the AUR version differs from the local version"
         aur_pkgbuild="/tmp/aur.$pp.PKGBUILD"
@@ -23,7 +22,9 @@ for package in packages/*; do
             updated_packages+=("$pp")
         fi
     else
-        git commit -m "chore: update $pp"
+        git status
+        log::info "Changes detected for $pp, commiting..."
+        git commit -m "chore: update $pp" "$package/PKGBUILD"
         git push
         updated_packages+=("$pp")
     fi
