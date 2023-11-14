@@ -14,7 +14,7 @@ for package in packages/*; do
     ./scripts/bin/gen_pkgbuild "$pp"
 
     git add "$package/PKGBUILD"
-    git diff
+    git diff --cached
     if git diff-index --quiet HEAD "$package"; then
         log::info "No changes for $pp, check if the AUR version differs from the local version"
         aur_pkgbuild="/tmp/aur.$pp.PKGBUILD"
