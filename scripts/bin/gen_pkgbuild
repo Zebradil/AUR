@@ -97,8 +97,8 @@ cat <<EOF >>"$tmp_pkgbuild"
 pkgname=${pkgname:?}
 pkgver=${tmp_pkgver}
 pkgrel=${tmp_pkgrel}
-pkgdesc="${pkgdesc:?}"
-url="${url:?}"
+pkgdesc='${pkgdesc:?}'
+url='${url:?}'
 arch=(${arch[@]:-any})
 license=(${license[@]:-unknown})
 EOF
