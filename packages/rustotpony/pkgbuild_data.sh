@@ -10,6 +10,7 @@ conflicts=('rustotpony-bin')
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="https://github.com/$_repo"
 license=('MIT')
+depends=('gcc-libs' 'glibc')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}::https://github.com/$_repo/archive/${pkgver}.tar.gz")
 sha256sums=('')
