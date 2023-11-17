@@ -13,6 +13,7 @@ set -euo pipefail
 
 _tmpdir=$(mktemp -d)
 _tools=(imgpkg kapp kbld kctrl kwt vendir ytt)
+_tools_completions=(imgpkg kapp kctrl vendir ytt)
 
 pkgname=carvel-tools
 pkgver=$(date +%Y%m%d)
@@ -76,10 +77,17 @@ _gen_package(){
     local bin_name
 
     echo "package() {"
+    echo 'mkdir -p "$pkgdir/usr/share/bash-completion/completions/"'
+    echo 'mkdir -p "$pkgdir/usr/share/zsh/site-functions/"'
+    echo 'mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/"'
     for tool in "${_tools[@]}"; do
         bin_name=$(grep -E "^${tool}[^:]+" -o "${_tmpdir}/_source_x86_64")
-        # shellcheck disable=SC2016
         echo 'install -Dm 755 "${srcdir}/'"${bin_name}"'" "${pkgdir}/usr/bin/'"${tool}"'"'
+        if [[ "${_tools_completions[*]}" =~ "${tool}" ]]; then
+            echo '"${pkgdir}/usr/bin/'"${tool}"'" completion bash | install -Dm644 /dev/stdin "${pkgdir}/usr/share/bash-completion/completions/${pkgname}-'"${tool}"'"'
+            echo '"${pkgdir}/usr/bin/'"${tool}"'" completion fish | install -Dm644 /dev/stdin "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}-'"${tool}"'.fish"'
+            echo '"${pkgdir}/usr/bin/'"${tool}"'" completion zsh  | install -Dm644 /dev/stdin "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}-'"${tool}"'"'
+        fi
     done
     echo "}"
 }
