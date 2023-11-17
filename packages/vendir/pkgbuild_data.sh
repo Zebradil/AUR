@@ -19,7 +19,10 @@ sha256sums=('')
 _z_update_hashsums=true
 
 build() {
-    cd "$pkgname-$pkgver" || exit 1
+    set -eo pipefail
+
+    cd "$pkgname-$pkgver"
+
     export CGO_CPPFLAGS="${CPPFLAGS}"
     export CGO_CFLAGS="${CFLAGS}"
     export CGO_CXXFLAGS="${CXXFLAGS}"
@@ -30,7 +33,9 @@ build() {
 }
 
 package() {
-    cd "$pkgname-$pkgver" || exit 1
+    set -eo pipefail
+
+    cd "$pkgname-$pkgver"
 
     BIN=$pkgname
 

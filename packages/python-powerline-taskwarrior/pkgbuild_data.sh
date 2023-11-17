@@ -21,11 +21,13 @@ sha256sums=('')
 _z_update_hashsums=true
 
 build() {
-    cd "${pkgname#python-}-$pkgver" || exit 1
+    set -eo pipefail
+    cd "${pkgname#python-}-$pkgver"
     python -m build --wheel --no-isolation
 }
 
 package() {
-    cd "${pkgname#python-}-$pkgver" || exit 1
+    set -eo pipefail
+    cd "${pkgname#python-}-$pkgver"
     python -m installer --destdir="$pkgdir" dist/*.whl
 }

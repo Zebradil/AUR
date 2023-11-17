@@ -16,6 +16,7 @@ sha256sums=('')
 _z_update_hashsums=true
 
 package() {
+    set -eo pipefail
     _binname=totp
     install -Dm755 "${srcdir}/${pkgname}-${pkgver}" "${pkgdir}/usr/bin/${_binname}"
 }

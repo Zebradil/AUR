@@ -47,11 +47,13 @@ sha256sums=(
 )
 
 pkgver() {
+    set -eo pipefail
     cd "${pkgname%-git}"
     git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/_/g'
 }
 
 build() {
+    set -eo pipefail
     cd "${srcdir}/${pkgname%-git}"
     git submodule init
     git config "submodule.i3ipc++.url" "${srcdir}/i3ipcpp"
@@ -63,6 +65,7 @@ build() {
 }
 
 package() {
+    set -eo pipefail
     cd "${srcdir}/${pkgname%-git}"
     make DESTDIR="$pkgdir/" install
 }

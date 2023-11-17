@@ -41,6 +41,7 @@ sha256sums=('' '')
 _z_update_hashsums=true
 
 build() {
+    set -eo pipefail
     cd "${srcdir}/${pkgname}-${pkgver//[_+]/-}"
     # Old approach, reactivate when a new version of i3ipcpp is released
     # mv -T "${srcdir}/i3ipcpp-${_i3ipcpp_ver}" ./i3ipc++
@@ -50,6 +51,7 @@ build() {
 }
 
 package() {
+    set -eo pipefail
     cd "${srcdir}/${pkgname}-${pkgver//[_+]/-}"
     make DESTDIR="$pkgdir/" install
 }

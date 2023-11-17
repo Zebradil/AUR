@@ -77,6 +77,7 @@ _gen_package(){
     local bin_name
 
     echo "package() {"
+    echo 'set -eo pipefail'
     echo 'mkdir -p "$pkgdir/usr/share/bash-completion/completions/"'
     echo 'mkdir -p "$pkgdir/usr/share/zsh/site-functions/"'
     echo 'mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/"'

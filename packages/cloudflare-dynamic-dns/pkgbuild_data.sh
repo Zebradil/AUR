@@ -33,8 +33,9 @@ check() {
 }
 
 package() {
-    cd "$pkgname-$pkgver" || exit 1
+    set -eo pipefail
 
+    cd "$pkgname-$pkgver"
     BIN="build/$pkgname"
 
     install -Dm755 "$BIN" -t "$pkgdir/usr/bin"

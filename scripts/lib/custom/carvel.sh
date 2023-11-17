@@ -41,6 +41,8 @@ done
 
 
 package() {
+    set -eo pipefail
+
     install -Dm 755 "${srcdir}/${_z_binname}-v${pkgver}" "${pkgdir}/usr/bin/${_z_binname}"
 
     mkdir -p "$pkgdir/usr/share/bash-completion/completions/";

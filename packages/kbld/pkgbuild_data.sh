@@ -19,6 +19,8 @@ sha256sums=('')
 _z_update_hashsums=true
 
 prepare() {
+    set -eo pipefail
+
     cd "$pkgname-$pkgver"
 
     # Overwrite LATEST_GIT_TAG to avoid detecting the latest tag from the wrong repo
@@ -26,7 +28,10 @@ prepare() {
 }
 
 build() {
-    cd "$pkgname-$pkgver" || exit 1
+    set -eo pipefail
+
+    cd "$pkgname-$pkgver"
+
     export CGO_CPPFLAGS="${CPPFLAGS}"
     export CGO_CFLAGS="${CFLAGS}"
     export CGO_CXXFLAGS="${CXXFLAGS}"
@@ -37,7 +42,9 @@ build() {
 }
 
 package() {
-    cd "$pkgname-$pkgver" || exit 1
+    set -eo pipefail
+
+    cd "$pkgname-$pkgver"
 
     BIN=$pkgname
 

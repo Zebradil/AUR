@@ -17,11 +17,13 @@ sha256sums=('')
 _z_update_hashsums=true
 
 build() {
+    set -eo pipefail
     cd "${pkgname}-${pkgver}"
     cargo build --release
 }
 
 package() {
+    set -eo pipefail
     _binname=totp
     install -Dm755 "${srcdir}/${pkgname}-${pkgver}/target/release/${_binname}" "${pkgdir}/usr/bin/${_binname}"
 }

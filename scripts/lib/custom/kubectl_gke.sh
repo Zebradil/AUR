@@ -63,5 +63,6 @@ for k_arch in "${arches[@]}"; do
 done
 
 package() {
+    set -eo pipefail
     install -Dm755 "$srcdir/$pkgname-$pkgver" "$pkgdir/usr/bin/kubectl"
 }
