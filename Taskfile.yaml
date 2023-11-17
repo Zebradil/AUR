@@ -1,0 +1,37 @@
+---
+version: "3"
+
+silent: true
+
+tasks:
+  default: ${GOTASK_BIN:-task} --list
+
+  docker:build:
+    desc: Build the docker image
+    cmds:
+      - docker compose build
+
+  docker:run:
+    desc: Run the docker image
+    cmds:
+      - docker compose run aur
+
+  pkgb:test:
+    desc: Test a package by building it in a docker container
+    summary: |
+      Builds a package from the packages diretory in a docker container using makepkg.
+      Usage:
+
+        task {{.TASK}} -- vendir
+    cmds:
+      - |
+        docker compose run aur -c '
+          cd /tmp
+          runuser -u builder -- \
+            cp /repo/packages/{{.CLI_ARGS}}/PKGBUILD ./
+          runuser -u builder -- \
+            makepkg \
+              --syncdeps \
+              --noconfirm \
+              --skippgpcheck \
+              --cleanbuild'

@@ -1,0 +1,20 @@
+volumes:
+  # volume for the pacman cache
+  pacman-cache:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /var/cache/pacman/pkg
+
+services:
+  aur:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - pacman-cache:/var/cache/pacman/pkg
+      - .:/repo:ro
+    entrypoint: ["/bin/bash"]
+    tty: true
+    stdin_open: true
