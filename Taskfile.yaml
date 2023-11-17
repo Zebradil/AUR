@@ -16,6 +16,16 @@ tasks:
     cmds:
       - docker compose run aur
 
+  pkgb:gen:
+    desc: Generate a PKGBUILD file
+    summary: |
+      Generates a PKGBUILD file from a template.
+      Usage:
+
+        task {{.TASK}} -- vendir
+    cmds:
+      - scripts/bin/gen_pkgbuild {{.CLI_ARGS}}
+
   pkgb:test:
     desc: Test a package by building it in a docker container
     summary: |
@@ -35,3 +45,8 @@ tasks:
               --noconfirm \
               --skippgpcheck \
               --cleanbuild'
+
+  docs:update_readme:
+    desc: Update the README.md file
+    cmds:
+      - scripts/bin/update_readme
