@@ -35,9 +35,9 @@ check() {
 package() {
     cd "$pkgname-$pkgver" || exit 1
 
-    BIN=$pkgname
+    BIN="build/$pkgname"
 
-    install -Dm755 build/$BIN -t "$pkgdir/usr/bin"
+    install -Dm755 "$BIN" -t "$pkgdir/usr/bin"
     install -Dm644 systemd/* -t "$pkgdir/usr/lib/systemd/system"
     install -m700 -d "$pkgdir/etc/$pkgname/config.d"
 
@@ -45,7 +45,7 @@ package() {
     mkdir -p "$pkgdir/usr/share/bash-completion/completions/"
     mkdir -p "$pkgdir/usr/share/zsh/site-functions/"
     mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/"
-    ./$BIN completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$BIN"
-    ./$BIN completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$BIN.fish"
-    ./$BIN completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$BIN"
+    "./$BIN" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+    "./$BIN" completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
+    "./$BIN" completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
 }
