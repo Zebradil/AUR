@@ -5,7 +5,7 @@
 # shellcheck disable=SC2034,SC2154
 pkgname=ytt-bin
 pkgver=0.46.2
-pkgrel=1
+pkgrel=2
 pkgdesc='YAML templating tool that works on YAML structure instead of text'
 url='https://carvel.dev/ytt'
 arch=(x86_64 aarch64)
@@ -17,6 +17,7 @@ sha256sums_x86_64=(ae9bc66a55756eed60db86f8c0f8c55704b3ab846513ad4502111c2a8673e
 sha256sums_aarch64=(e43a524db8a0c69a54bc56132ac0cf8d55a049c48f63a9047dd6984dc89a940e)
 package () 
 { 
+    set -eo pipefail;
     install -Dm 755 "${srcdir}/${_z_binname}-v${pkgver}" "${pkgdir}/usr/bin/${_z_binname}";
     mkdir -p "$pkgdir/usr/share/bash-completion/completions/";
     mkdir -p "$pkgdir/usr/share/zsh/site-functions/";
