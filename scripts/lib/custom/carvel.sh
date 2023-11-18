@@ -1,6 +1,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 _z_binname="${_CARVEL_BINNAME:?}"
+_z_with_completion="${_CARVEL_WITH_COMPLETION:-true}"
 _github_repo="carvel-dev/${_CARVEL_PROJECT:?}"
 
 _gh_info=$(pkgb:get_github_info "$_github_repo")
@@ -48,10 +49,12 @@ package() {
 
     install -Dm 755 "$BIN_SRC" "$BIN_DST"
 
-    mkdir -p "$pkgdir/usr/share/bash-completion/completions/";
-    mkdir -p "$pkgdir/usr/share/zsh/site-functions/";
-    mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/";
-    "$BIN_DST" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$_z_binname";
-    "$BIN_DST" completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$_z_binname.fish";
-    "$BIN_DST" completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$_z_binname"
+    if [[ "$_z_with_completion" == "true" ]]; then
+        mkdir -p "$pkgdir/usr/share/bash-completion/completions/";
+        mkdir -p "$pkgdir/usr/share/zsh/site-functions/";
+        mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/";
+        "$BIN_DST" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$_z_binname";
+        "$BIN_DST" completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$_z_binname.fish";
+        "$BIN_DST" completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$_z_binname"
+    fi
 }
