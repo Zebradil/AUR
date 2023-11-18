@@ -7,13 +7,14 @@ pkgdesc="Powerline segment for showing information from Taskwarrior task manager
 license=(MIT)
 url="https://github.com/Zebradil/powerline-taskwarrior"
 depends=(
-    powerline
+    python-powerline
     python3
+    task
 )
 makedepends=(
     python-build
     python-installer
-    python-poetry
+    python-poetry-core
     python-wheel
 )
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
