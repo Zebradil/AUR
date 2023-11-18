@@ -1,4 +1,4 @@
-# shellcheck disable=SC2034,SC2154
+# shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=cloudflare-dynamic-dns
 _repo="zebradil/$pkgname"

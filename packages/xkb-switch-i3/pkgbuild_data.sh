@@ -1,4 +1,4 @@
-# shellcheck disable=SC2034,SC2154
+# shellcheck shell=bash disable=SC2034,SC2154
 
 contributors=(
     'Orestis Floros <orestisf1993@gmail.com>'
