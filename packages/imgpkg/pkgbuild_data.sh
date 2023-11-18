@@ -37,15 +37,16 @@ package() {
 
     cd "$pkgname-$pkgver"
 
-    BIN=$pkgname
+    BIN_SRC="$pkgname"
+    BIN_DST="$pkgdir/usr/bin/$pkgname"
 
-    install -Dm755 $BIN -t "$pkgdir/usr/bin"
+    install -Dm755 "$BIN_SRC" "$BIN_DST"
 
     # completions
     mkdir -p "$pkgdir/usr/share/bash-completion/completions/"
     mkdir -p "$pkgdir/usr/share/zsh/site-functions/"
     mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/"
-    ./$BIN completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$BIN"
-    ./$BIN completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$BIN.fish"
-    ./$BIN completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$BIN"
+    "$BIN_DST" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+    "$BIN_DST" completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
+    "$BIN_DST" completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
 }
