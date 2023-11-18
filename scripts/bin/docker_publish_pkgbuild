@@ -83,10 +83,10 @@ ci::set_git_user "$COMMIT_USERNAME" "$COMMIT_EMAIL"
 log::group "Cloning $PKGNAME into $LOCAL_REPO_DIR"
 # Cloning is often fails, so we retry it
 for i in {1..5}; do
-    git clone --depth 1 -v "ssh://aur@aur/archlinux/${PKGNAME}" "$LOCAL_REPO_DIR" \
+    git clone --depth 1 -v "ssh://aur@aur.archlinux.org/${PKGNAME}.git" "$LOCAL_REPO_DIR" \
         && break
     delay=$((i * 5))
-    log::warning "Cloning failed, retrying in $delay seconds..."
+    log::warn "Cloning failed, retrying in $delay seconds..."
     sleep "$delay"
 done
 log::endgroup
