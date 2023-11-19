@@ -17,6 +17,14 @@ RUN --mount=type=cache,target=/var/cache/pacman/pkg \
   pacman -Suy --noconfirm --needed --overwrite '*' \
       go
 
+# Install yay from GitHub
+ARG YAY_VERSION=12.1.3
+RUN --mount=type=tmpfs,target=/tmp \
+    curl -sSfL \
+      https://github.com/Jguer/yay/releases/download/v${YAY_VERSION}/yay_${YAY_VERSION}_x86_64.tar.gz \
+        | tar -xzC /tmp --strip-components=1 \
+ && mv /tmp/yay /usr/local/bin/yay
+
 ARG APP_ROOT=/app
 ARG BIN_DIR="${APP_ROOT}/scripts/bin"
 

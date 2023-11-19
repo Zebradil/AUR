@@ -9,6 +9,7 @@ source "$LIB_DIR/ci.sh"
 
 # Default values
 ASSETS="${ASSETS:-}"
+AUR_DEPS="${AUR_DEPS:-}"
 BUILD_FLAGS="${BUILD_FLAGS:-"--clean --cleanbuild --nodeps"}"
 COMMIT_MESSAGE="${COMMIT_MESSAGE:-"Update PKGBUILD and .SRCINFO with GitHub Actions"}"
 POST_PROCESS="${POST_PROCESS:-}"
@@ -42,6 +43,7 @@ done
 
 # Overrides from the PKGBUILD file
 ALLOWED_Z_VAR_NAMES=(
+    _z_aur_deps
     _z_build
     _z_build_opts
     _z_update_hashsums
@@ -53,6 +55,10 @@ while read -r z_var; do
     log::debug "Evaluating $z_var"
     eval "$z_var"
 done <<<"$Z_VARS"
+
+if [[ -n ${_z_aur_deps:-} ]]; then
+    AUR_DEPS="${_z_aur_deps[*]}"
+fi
 
 if [[ ${_z_build:-false} == "true" ]]; then
     BUILD=true
@@ -114,6 +120,11 @@ if [[ $UPDPKGSUMS == "true" ]]; then
 fi
 
 if [[ $BUILD == "true" ]]; then
+    if [[ -n $AUR_DEPS ]]; then
+        log::group "Installing AUR dependencies"
+        yay -S --noconfirm --needed $AUR_DEPS
+        log::endgroup
+    fi
     log::group "Building package with makepkg"
     read -r -a build_flags <<< "$BUILD_FLAGS"
     makepkg "${build_flags[@]}"
