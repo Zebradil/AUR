@@ -1,4 +1,4 @@
-FROM ghcr.io/archlinux/archlinux:base-20231107.0.190206
+FROM ghcr.io/archlinux/archlinux:base-20231120.0.193243
 
 RUN --mount=type=cache,target=/var/cache/pacman/pkg \
   pacman -Suy --noconfirm
