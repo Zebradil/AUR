@@ -7,7 +7,7 @@ AUR (Arch User Repository) packages that I maintain.
 <!-- BEGIN MAINTAINED_PACKAGES -->
 | Package | Version | AUR | Description |
 | ------- | ------- | --- | ----------- |
-| [alacritty-colorscheme-git](https://github.com/toggle-corp/alacritty-colorscheme/) | r51.257e466-1 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
+| [alacritty-colorscheme-git](https://github.com/zebradil/alacritty-colorscheme/) | r51.257e466-1 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
 | [carvel-tools](https://carvel.dev) | 20231117-2 | [link](https://aur.archlinux.org/packages/carvel-tools) | Set of Carvel tools (binaries): imgpkg kapp kbld kctrl kwt vendir ytt |
 | [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 2.3.2-11 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
 | [cloudflare-dynamic-dns-bin¹](https://github.com/Zebradil/cloudflare-dynamic-dns) | 2.3.2-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Updates AAAA records at Cloudflare according to the current IPv6 address |
