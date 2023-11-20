@@ -3,5 +3,13 @@
   extends: [
     "config:base",
     "docker:enableMajor",
-  ]
+  ],
+  packageRules: [
+    {
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/archlinux/archlinux"],
+      // base-20231107.0.190206
+      versioning: "regex:^(?<compatibility>.+)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<build>\\d+)$",
+    },
+  ],
 }
