@@ -3,11 +3,12 @@
   extends: [
     "config:base",
     "docker:enableMajor",
+    "default:automergeAll",
   ],
+  // Rebase PRs if needed even if there are commits from other bots
+  gitIgnoredAuthors: ["github-actions[bot]@users.noreply.github.com"],
   packageRules: [
     {
-      automerge: true,
-    }, {
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/archlinux/archlinux"],
       // base-20231107.0.190206
