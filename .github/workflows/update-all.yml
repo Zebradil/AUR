@@ -11,10 +11,12 @@ on:
   push:
     branches:
       - "master"
+  pull_request:
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}-ci
+  DRY_RUN: ${{ github.ref_name != 'master' }}
 
 jobs:
   build_and_push_image:
@@ -112,6 +114,7 @@ jobs:
           COMMIT_USERNAME: "github-actions[bot]"
           PKGBUILD: ./packages/${{ matrix.package }}/PKGBUILD
           PKGNAME: ${{ matrix.package }}
+          SKIP_PUBLISH: ${{ env.DRY_RUN }}
           SSH_PRIVATE_KEY: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
         run: |
           set -euo pipefail
@@ -130,8 +133,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Checkout the latest state of the repository
-          ref: "${{ github.ref_name }}"
+          # Checkout the latest state of the current branch
+          ref: "${{ github.head_ref || github.ref_name }}"
       - name: Update README
         shell: docker_entrypoint {0}
         env:
