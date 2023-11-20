@@ -133,8 +133,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Checkout the latest state of the repository
-          ref: "${{ github.ref_name }}"
+          # Checkout the latest state of the current branch
+          ref: "${{ github.head_ref || github.ref_name }}"
       - name: Update README
         shell: docker_entrypoint {0}
         env:
