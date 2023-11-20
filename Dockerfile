@@ -1,10 +1,7 @@
-FROM ghcr.io/archlinux/archlinux:base-20231120.0.193243
+FROM ghcr.io/archlinux/archlinux:base-devel-20231120.0.193243
 
 RUN --mount=type=cache,target=/var/cache/pacman/pkg \
-  pacman -Suy --noconfirm
-RUN --mount=type=cache,target=/var/cache/pacman/pkg \
   pacman -Suy --noconfirm --needed --overwrite '*' \
-      base-devel \
       diffutils \
       git \
       github-cli \
