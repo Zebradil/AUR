@@ -122,7 +122,7 @@ fi
 if [[ $BUILD == "true" ]]; then
     if [[ -n $AUR_DEPS ]]; then
         log::group "Installing AUR dependencies"
-        yay -S --noconfirm --needed $AUR_DEPS
+        yay -Suy --noconfirm --needed $AUR_DEPS
         log::endgroup
     fi
     log::group "Building package with makepkg"
