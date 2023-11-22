@@ -75,6 +75,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          ref: "${{ github.head_ref || github.ref_name }}"
           # use more powerful token on the master branch, otherwise use the default GITHUB_TOKEN
           token: ${{ github.ref_name == 'master' && secrets.ZEBRADIL_REPO_TOKEN || github.token }}
       - name: Generate and commit PKGBUILDs
