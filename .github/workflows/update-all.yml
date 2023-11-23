@@ -86,7 +86,8 @@ jobs:
             packages/**
             !packages/*/PKGBUILD
             !packages/*/pkgbuild_data.sh
-          key: generate_pkgbuilds-latest
+          key: generate_pkgbuilds-latest-${{ github.run_id }}
+          restore-keys: generate_pkgbuilds-latest
       - name: Debug cache
         run: |
           echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
