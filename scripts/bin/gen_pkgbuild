@@ -79,7 +79,11 @@ fi
 dest_pkgver="$(sed -rn 's/^pkgver=(.+)/\1/p' "$dest_pkgbuild")"
 dest_pkgrel="$(sed -rn 's/^pkgrel=(.+)/\1/p' "$dest_pkgbuild")"
 
-tmp_pkgbuild="$(mktemp --suffix="_${AUR_PACKAGE}.pkgbuild")"
+tmp_pkgbuild="$dest_pkgbuild.tmp"
+if [[ -f "$tmp_pkgbuild" ]]; then
+    log::debug "Removing old $tmp_pkgbuild..."
+    rm "$tmp_pkgbuild"
+fi
 
 log::debug "Generating $tmp_pkgbuild..."
 
