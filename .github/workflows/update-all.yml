@@ -86,6 +86,11 @@ jobs:
             !packages/*/PKGBUILD
             !packages/*/pkgbuild_data.sh
           key: generate_pkgbuilds-latest
+      - name: Debug cache
+        run: |
+          echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
+          echo "Cache key: ${{ steps.cache.outputs.cache-key }}"
+          find packages
       - name: Generate and commit PKGBUILDs
         id: generate_pkgbuilds
         shell: docker_entrypoint {0}
@@ -99,6 +104,9 @@ jobs:
           git config user.name "github-actions[bot]"
 
           ci_gen_pkgbuilds
+      - name: Debug cache
+        run: |
+          find packages
   update_packages:
     container: ${{ needs.build_and_push_image.outputs.image }}
     if: needs.generate_pkgbuilds.outputs.updated_packages != '[]'
