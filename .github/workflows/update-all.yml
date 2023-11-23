@@ -91,7 +91,6 @@ jobs:
       - name: Debug cache
         run: |
           echo "Cache hit: ${{ steps.cache.outputs.cache-hit }}"
-          echo "Cache key: ${{ steps.cache.outputs.cache-key }}"
           find packages
       - name: Generate and commit PKGBUILDs
         id: generate_pkgbuilds
