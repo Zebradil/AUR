@@ -79,6 +79,7 @@ jobs:
           # use more powerful token on the master branch, otherwise use the default GITHUB_TOKEN
           token: ${{ github.ref_name == 'master' && secrets.ZEBRADIL_REPO_TOKEN || github.token }}
       - name: Setup cache
+        id: cache
         uses: actions/cache@v3
         with:
           path: |
