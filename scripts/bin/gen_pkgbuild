@@ -179,6 +179,12 @@ if diff -q \
     >/dev/null; then
     log::info "No changes"
     exit 0
+else
+    diff -u \
+        <(sed '/^pkgver=/d; /^pkgrel=/d' "$dest_pkgbuild") \
+        <(sed '/^pkgver=/d; /^pkgrel=/d' "$tmp_pkgbuild") \
+        || true
+
 fi
 
 log::info "Moving $tmp_pkgbuild to $dest_pkgbuild..."
