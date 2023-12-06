@@ -177,14 +177,8 @@ if diff -q \
     <(sed '/^pkgver=/d; /^pkgrel=/d' "$dest_pkgbuild") \
     <(sed '/^pkgver=/d; /^pkgrel=/d' "$tmp_pkgbuild") \
     >/dev/null; then
-    log::info "No changes"
+    log::info "No changes (excluding pkgver and pkgrel)"
     exit 0
-else
-    diff -u \
-        <(sed '/^pkgver=/d; /^pkgrel=/d' "$dest_pkgbuild") \
-        <(sed '/^pkgver=/d; /^pkgrel=/d' "$tmp_pkgbuild") \
-        || true
-
 fi
 
 log::info "Moving $tmp_pkgbuild to $dest_pkgbuild..."
