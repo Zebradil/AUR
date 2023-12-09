@@ -6,7 +6,7 @@
     "default:automergeAll",
   ],
   // Rebase PRs if needed even if there are commits from other bots
-  gitIgnoredAuthors: ["github-actions[bot]@users.noreply.github.com"],
+  gitIgnoredAuthors: ["41898282+github-actions[bot]@users.noreply.github.com"],
   packageRules: [{
     matchDatasources: ["docker"],
     matchPackageNames: ["ghcr.io/archlinux/archlinux"],
