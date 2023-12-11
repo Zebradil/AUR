@@ -19,6 +19,17 @@ env:
   DRY_RUN: ${{ github.ref_name != 'master' }}
 
 jobs:
+  # This job just marks the start of the workflow run. It sets the status of the commit to pending.
+  set_status:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    permissions:
+      statuses: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set pending commit status
+        uses: myrotvorets/set-commit-status-action@master
+        with:
+          status: pending
   build_and_push_image:
     runs-on: ubuntu-latest
     permissions:
@@ -182,3 +193,21 @@ jobs:
 
           git commit -m "chore(docs): update README [skip ci]"
           git push
+  # This job contains rules to decide whether the workflow run was successful or not. It sets the status of the commit
+  # to success or failure. The status should be selected as required in the branch protection rules.
+  report_status:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    needs:
+      - build_and_push_image
+      - generate_pkgbuilds
+      - update_packages
+      - update_readme
+    permissions:
+      statuses: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set final commit status
+        uses: myrotvorets/set-commit-status-action@master
+        if: always()
+        with:
+          status: ${{ job.status }}
