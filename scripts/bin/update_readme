@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-rdm:usage(){
+rdm:usage() {
     cat <<EOF
 Usage: $(basename "$0") FILE MAINTAINER
 
@@ -18,7 +18,7 @@ EOF
 # Args:
 #  $1: Markdown file to update.
 #  $2: Maintainer to filter packages by.
-rdm:update(){
+rdm:update() {
     if [[ $# -ne 2 ]]; then
         rdm:usage
         exit 1
@@ -40,7 +40,7 @@ rdm:update(){
 # Args:
 #  $1: Markdown file to update.
 #  $2: Maintainer to filter packages by.
-rdm:inject_maintained_packages(){
+rdm:inject_maintained_packages() {
     local begin_marker='<!-- BEGIN MAINTAINED_PACKAGES -->'
     local end_marker='<!-- END MAINTAINED_PACKAGES -->'
 
@@ -48,12 +48,12 @@ rdm:inject_maintained_packages(){
     local maintainer="${2:?Specify maintainer}"
     local tmp_file="$(mktemp --suffix='.packages.md')"
 
-    sed -n "1,/$begin_marker/p" "$file" > "$tmp_file"
+    sed -n "1,/$begin_marker/p" "$file" >"$tmp_file"
 
     {
         echo "| Package | Version | AUR | Description |"
         echo "| ------- | ------- | --- | ----------- |"
-    } >> "$tmp_file"
+    } >>"$tmp_file"
 
     while read -r package_json; do
         local description name url version
@@ -67,16 +67,16 @@ rdm:inject_maintained_packages(){
         if [[ ! -f "packages/$name/PKGBUILD" ]]; then
             name="$name¹"
         fi
-        echo "| [$name]($url) | $version | [link]($aur_url) | $description |" >> "$tmp_file"
+        echo "| [$name]($url) | $version | [link]($aur_url) | $description |" >>"$tmp_file"
     done < <(rdm:get_maintained_packages "$maintainer")
 
     {
         echo
         echo "¹ - Package is maintained in the AUR but not in this repository."
         echo "    Check the PKGBUILD file of the package for more information."
-    } >> "$tmp_file"
+    } >>"$tmp_file"
 
-    sed -n "/$end_marker/,\$p" "$file" >> "$tmp_file"
+    sed -n "/$end_marker/,\$p" "$file" >>"$tmp_file"
     cp "$tmp_file" "$file"
     rm "$tmp_file"
 }
@@ -85,10 +85,11 @@ rdm:inject_maintained_packages(){
 # Returns JSON objects.
 # Args:
 #  $1: Maintainer to filter packages by.
-rdm:get_maintained_packages(){
+rdm:get_maintained_packages() {
     local maintainer="${1:?Specify maintainer}"
-    curl -fsSL "https://aur.archlinux.org/rpc?v=5&type=search&by=maintainer&arg=$maintainer" \
-        | jq --compact-output '.results[]'
+    jq --null-input --compact-output '[inputs.results[]] | sort_by(.Name) | .[]' \
+        <(curl -fsSL "https://aur.archlinux.org/rpc/v5/search/$maintainer?by=maintainer") \
+        <(curl -fsSL "https://aur.archlinux.org/rpc/v5/search/$maintainer?by=comaintainers")
 }
 
 # Execute the main function if the script is not being sourced.
