@@ -29,8 +29,9 @@ The following variables are set to default values:
   - pkgrel (1, incremented if pkgver is the same as in the existing PKGBUILD)
   - license (unknown)
   - arch (any)
-The following integrity arrays are recognized:
-The following switches are accepted:
+The following custom variables are processed:
+  - contributors (array of contributors, added to the PKGBUILD header)
+  - header (custom header, added to the PKGBUILD header)
 Variables prefixed with _z_ are always added to the generated PKGBUILD. They
 can be used in PKGBUILD functions. For example, _z_name can be used to refer
 to the tool name across all functions. The following variables modify the
@@ -87,8 +88,12 @@ fi
 
 log::debug "Generating $tmp_pkgbuild..."
 
-contributors=("${contributors[@]:-}")
-pkgb:header contributors > "$tmp_pkgbuild"
+if [[ -n ${header:-} ]]; then
+    echo -e "$header\n" > "$tmp_pkgbuild"
+else
+    contributors=("${contributors[@]:-}")
+    pkgb:header contributors > "$tmp_pkgbuild"
+fi
 
 tmp_pkgver="${pkgver:-$(date +%Y%m%d)}"
 tmp_pkgrel="${pkgrel:-1}"

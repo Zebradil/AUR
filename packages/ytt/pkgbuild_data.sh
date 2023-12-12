@@ -1,5 +1,14 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
+header='# Maintainer: George Tsiamasiotis <gtsiam@windowslive.com>
+# Maintainer: German Lashevich <german.lashevich@gmail.com>
+# Contributor: Pellegrino Prevete <pellegrinoprevete@gmail.com>
+# Contributor: Jean-Francois Chevrette <jfchevrette@gmail.com>
+#
+# Source: https://github.com/zebradil/aur
+#
+# shellcheck disable=SC2034,SC2154'
+
 pkgname=ytt
 _github_repo="carvel-dev/$pkgname"
 
@@ -56,5 +65,5 @@ package() {
     mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/"
     ./$BIN completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$BIN"
     ./$BIN completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$BIN.fish"
-    ./$BIN completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$BIN"
+    ./$BIN completion zsh | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$BIN"
 }
