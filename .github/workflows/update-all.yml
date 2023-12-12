@@ -206,8 +206,14 @@ jobs:
       statuses: write
     runs-on: ubuntu-latest
     steps:
+      - name: Figure out overall status
+        id: overall_status
+        uses: re-actors/alls-green@release/v1
+        with:
+          allowed-skips: update_packages
+          jobs: ${{ toJSON(needs) }}
       - name: Set final commit status
         uses: myrotvorets/set-commit-status-action@master
         if: always()
         with:
-          status: ${{ job.status }}
+          status: ${{ steps.overall_status.outputs.result }}
