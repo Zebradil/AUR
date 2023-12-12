@@ -219,7 +219,7 @@ jobs:
   # This job contains rules to decide whether the workflow run was successful or not. It sets the status of the commit
   # to success or failure. The status should be selected as required in the branch protection rules.
   report_status:
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    if: always() && (github.event_name == 'push' || github.event_name == 'pull_request')
     needs:
       - build_and_push_image
       - generate_pkgbuilds
