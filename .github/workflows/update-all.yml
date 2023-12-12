@@ -19,6 +19,29 @@ env:
   DRY_RUN: ${{ github.ref_name != 'master' }}
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump vars context
+        run: echo "${{ toJson(vars) }}"
+      - name: Dump env context
+        run: echo "${{ toJson(env) }}"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo "$RUNNER_CONTEXT"
   # This job just marks the start of the workflow run. It sets the status of the commit to pending.
   set_status:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
@@ -155,7 +178,7 @@ jobs:
   update_readme:
     container: ${{ needs.build_and_push_image.outputs.image }}
     # if: needs.generate_pkgbuilds.outputs.updated_packages != '[]'
-    if: ${{ always() }}
+    if: always()
     needs:
       - build_and_push_image
       - generate_pkgbuilds
