@@ -1,15 +1,11 @@
-# Maintainer: George Tsiamasiotis <gtsiam@windowslive.com>
 # Maintainer: German Lashevich <german.lashevich@gmail.com>
-# Contributor: Pellegrino Prevete <pellegrinoprevete@gmail.com>
-# Contributor: Jean-Francois Chevrette <jfchevrette@gmail.com>
 #
 # Source: https://github.com/zebradil/aur
 #
 # shellcheck disable=SC2034,SC2154
-
 pkgname=ytt
 pkgver=0.46.2
-pkgrel=2
+pkgrel=1
 pkgdesc='YAML templating tool that works on YAML structure instead of text'
 url='https://carvel.dev/ytt'
 arch=(any)
