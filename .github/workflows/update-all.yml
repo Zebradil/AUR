@@ -189,7 +189,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           # Checkout the latest state of the current branch
-          ref: "${{ github.head_ref || github.ref_name }}"
+          ref: ${{ github.head_ref || github.ref_name }}
           # use more powerful token on the master branch, otherwise use the default GITHUB_TOKEN
           token: ${{ github.ref_name == 'master' && secrets.ZEBRADIL_REPO_TOKEN || github.token }}
       - name: Update README
@@ -240,3 +240,9 @@ jobs:
         if: always()
         with:
           status: ${{ steps.overall_status.outputs.result }}
+          # When running on a PR, set the commit status on the latest commit in
+          # the branch. Otherwise, the PR will be waiting for the commit status
+          # indefinitely. This, in particular, blocks Renovate from merging PRs
+          # automatically.
+          # If running on a push, set the commit status on the current commit.
+          commit: ${{ github.head_ref || github.ref_name }}
