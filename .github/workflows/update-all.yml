@@ -184,6 +184,8 @@ jobs:
       - generate_pkgbuilds
       - update_packages
     runs-on: ubuntu-latest
+    outputs:
+      last_sha: ${{ steps.update_readme.outputs.last_sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -193,6 +195,7 @@ jobs:
           # use more powerful token on the master branch, otherwise use the default GITHUB_TOKEN
           token: ${{ github.ref_name == 'master' && secrets.ZEBRADIL_REPO_TOKEN || github.token }}
       - name: Update README
+        id: update_readme
         shell: docker_entrypoint {0}
         env:
           MAINTAINER: zebradil
@@ -216,6 +219,8 @@ jobs:
 
           git commit -m "chore(docs): update README [skip ci]"
           git push
+
+          echo "last_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
   # This job contains rules to decide whether the workflow run was successful or not. It sets the status of the commit
   # to success or failure. The status should be selected as required in the branch protection rules.
   report_status:
@@ -245,4 +250,4 @@ jobs:
           # indefinitely. This, in particular, blocks Renovate from merging PRs
           # automatically.
           # If running on a push, set the commit status on the current commit.
-          sha: ${{ github.head_ref || github.ref_name }}
+          sha: ${{ needs.update_readme.outputs.last_sha || needs.generate_pkgbuilds.outputs.last_sha || github.sha }}
