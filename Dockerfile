@@ -1,4 +1,4 @@
-FROM ghcr.io/archlinux/archlinux:base-devel-20231214.0.199919
+FROM ghcr.io/archlinux/archlinux:base-devel-20231215.0.200152
 
 RUN --mount=type=cache,target=/var/cache/pacman/pkg \
   pacman -Suy --noconfirm --needed --overwrite '*' \
