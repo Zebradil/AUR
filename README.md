@@ -23,7 +23,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | ------- | ------- | --- | ----------- |
 | [alacritty-colorscheme-git](https://github.com/zebradil/alacritty-colorscheme/) | r51.257e466-1 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
 | [carvel-tools](https://carvel.dev) | 20231216-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Set of Carvel tools (binaries): imgpkg kapp kbld kctrl kwt vendir ytt |
-| [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 2.3.7-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
+| [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 2.3.8-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
 | [cloudflare-dynamic-dns-bin¹](https://github.com/Zebradil/cloudflare-dynamic-dns) | 2.3.2-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Updates AAAA records at Cloudflare according to the current IPv6 address |
 | [imgpkg](https://carvel.dev/imgpkg) | 0.39.0-3 | [link](https://aur.archlinux.org/packages/imgpkg) | Store application configuration files in Docker/OCI registries |
 | [imgpkg-bin](https://carvel.dev/imgpkg) | 0.39.0-5 | [link](https://aur.archlinux.org/packages/imgpkg-bin) | Store application configuration files in Docker/OCI registries |
