@@ -193,7 +193,7 @@ jobs:
           # Checkout the latest state of the current branch
           ref: ${{ github.head_ref || github.ref_name }}
           # use more powerful token on the master branch, otherwise use the default GITHUB_TOKEN
-          token: ${{ github.ref_name == 'master' && secrets.ZEBRADIL_REPO_TOKEN || github.token }}
+          token: ${{ github.ref_name == github.event.repository.default_branch && secrets.ZEBRADIL_REPO_TOKEN || github.token }}
       - name: Update README
         id: update_readme
         shell: docker_entrypoint {0}
