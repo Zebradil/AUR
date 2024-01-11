@@ -37,7 +37,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
 | [kwt](https://github.com/carvel-dev/kwt) | 0.0.8-2 | [link](https://aur.archlinux.org/packages/kwt) | Kubernetes Workstation Tools CLI |
 | [kwt-bin](https://github.com/carvel-dev/kwt) | 0.0.8-5 | [link](https://aur.archlinux.org/packages/kwt-bin) | Kubernetes Workstation Tools CLI |
-| [myks-bin¹](https://github.com/mykso/myks) | 3.2.0-1 | [link](https://aur.archlinux.org/packages/myks-bin) | A configuration framework for Kubernetes applications |
+| [myks-bin¹](https://github.com/mykso/myks) | 3.2.1-1 | [link](https://aur.archlinux.org/packages/myks-bin) | A configuration framework for Kubernetes applications |
 | [pdfrrr¹](https://github.com/zebradil/pdfrrr) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/pdfrrr) | Rotate pdf pages automatically |
 | [python-powerline-taskwarrior](https://github.com/Zebradil/powerline-taskwarrior) | 2.0.0-17 | [link](https://aur.archlinux.org/packages/python-powerline-taskwarrior) | Powerline segment for showing information from Taskwarrior task manager |
 | [rustotpony](https://github.com/zebradil/rustotpony) | 0.4.4-2 | [link](https://aur.archlinux.org/packages/rustotpony) | RusTOTPony — CLI manager of one-time password generators like Google Authenticator |
