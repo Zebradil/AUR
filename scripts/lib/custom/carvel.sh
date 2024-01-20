@@ -38,7 +38,7 @@ for _arch_pkg in "${arch[@]}"; do
     )"
     declare -a "source_$_arch_pkg=('$_source')"
 
-    _hashsum="$(jq --raw-output '.body' <"$_tmp_file" | sed --silent --regexp-extended 's/^([a-z0-9]{64})\s+.+linux-amd64/\1/p')"
+    _hashsum="$(jq --raw-output '.body' <"$_tmp_file" | sed --silent --regexp-extended 's/^([a-z0-9]{64})\s+.+linux-amd64.*$/\1/p')"
     declare -a "sha256sums_$_arch_pkg=('$_hashsum')"
 done
 
