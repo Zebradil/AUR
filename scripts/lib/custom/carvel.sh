@@ -13,33 +13,34 @@ else
     log::error "Failed to get info from GitHub"
 fi
 
-provides=($_z_binname)
+provides=("$_z_binname")
 arch=(x86_64 aarch64)
 
 _tmp_file="$(mktemp)"
+log::debug "Temporary file for $_z_binname: $_tmp_file"
 gh release view \
     --repo "$_github_repo" \
     --json assets,body,tagName \
     >"$_tmp_file"
 for _arch_pkg in "${arch[@]}"; do
     case "$_arch_pkg" in
-        x86_64) _arch_bin=amd64 ;;
-        aarch64) _arch_bin=arm64 ;;
+    x86_64) _arch_bin=amd64 ;;
+    aarch64) _arch_bin=arm64 ;;
     esac
 
-    _source="$( \
-       jq --raw-output \
-         --exit-status \
-         --arg tool "$_z_binname" \
-         --arg arch "$_arch_bin" \
-         '$tool + "-" + .tagName + "::" + (.assets[] | select(.name == $tool + "-linux-" + $arch) | .url)' \
-         <"$_tmp_file")"
+    _source="$(
+        jq --raw-output \
+            --exit-status \
+            --arg tool "$_z_binname" \
+            --arg arch "$_arch_bin" \
+            '$tool + "-" + .tagName + "::" + (.assets[] | select(.name == $tool + "-linux-" + $arch) | .url)' \
+            <"$_tmp_file"
+    )"
     declare -a "source_$_arch_pkg=('$_source')"
 
     _hashsum="$(jq --raw-output '.body' <"$_tmp_file" | grep -F "linux-$_arch_bin" | awk '{print $1}')"
     declare -a "sha256sums_$_arch_pkg=('$_hashsum')"
 done
-
 
 package() {
     set -eo pipefail
@@ -50,11 +51,11 @@ package() {
     install -Dm 755 "$BIN_SRC" "$BIN_DST"
 
     if [[ "$_z_with_completion" == "true" ]]; then
-        mkdir -p "$pkgdir/usr/share/bash-completion/completions/";
-        mkdir -p "$pkgdir/usr/share/zsh/site-functions/";
-        mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/";
-        "$BIN_DST" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$_z_binname";
-        "$BIN_DST" completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$_z_binname.fish";
-        "$BIN_DST" completion zsh  | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$_z_binname"
+        mkdir -p "$pkgdir/usr/share/bash-completion/completions/"
+        mkdir -p "$pkgdir/usr/share/zsh/site-functions/"
+        mkdir -p "$pkgdir/usr/share/fish/vendor_completions.d/"
+        "$BIN_DST" completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/$_z_binname"
+        "$BIN_DST" completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/$_z_binname.fish"
+        "$BIN_DST" completion zsh | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_$_z_binname"
     fi
 }
