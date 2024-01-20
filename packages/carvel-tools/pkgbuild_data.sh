@@ -59,8 +59,7 @@ _retrieve_data() {
                 >>"${_tmpdir}/_source_${arch_pkg}"
 
             jq --raw-output '.body' <"${tmp_file}" \
-                | grep -F "linux-${arch_bin}" \
-                | awk '{print $1}' \
+                | sed --silent --regexp-extended "s/^([a-z0-9]{64})\s+.*linux-$arch_bin.*$/\1/p" \
                 >>"${_tmpdir}/_hashsum_${arch_pkg}"
         done
     done
