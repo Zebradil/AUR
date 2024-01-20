@@ -24,12 +24,10 @@ license=(Apache)
 provides=("${_tools[@]}")
 conflicts=("${_tools[@]}")
 
-
 _retrieve_data() {
     local project
     local tmp_file
     local arch_bin
-
 
     for tool in "${_tools[@]}"; do
         if [[ $tool == kctrl ]]; then
@@ -46,8 +44,8 @@ _retrieve_data() {
 
         for arch_pkg in "${arch[@]}"; do
             case "${arch_pkg}" in
-                x86_64) arch_bin=amd64 ;;
-                aarch64) arch_bin=arm64 ;;
+            x86_64) arch_bin=amd64 ;;
+            aarch64) arch_bin=arm64 ;;
             esac
 
             jq --raw-output \
@@ -58,9 +56,9 @@ _retrieve_data() {
                 <"${tmp_file}" \
                 >>"${_tmpdir}/_source_${arch_pkg}"
 
-            jq --raw-output '.body' <"${tmp_file}" \
-                | sed --silent --regexp-extended "s/^([a-z0-9]{64})\s+.*linux-$arch_bin.*$/\1/p" \
-                >>"${_tmpdir}/_hashsum_${arch_pkg}"
+            jq --raw-output '.body' <"${tmp_file}" |
+                sed --silent --regexp-extended "s/^([a-z0-9]{64})\s+.*linux-$arch_bin.*$/\1/p" \
+                    >>"${_tmpdir}/_hashsum_${arch_pkg}"
         done
     done
 }
@@ -72,7 +70,7 @@ for a in "${arch[@]}"; do
     readarray -t "sha256sums_$a" < <(cat "${_tmpdir}/_hashsum_$a")
 done
 
-_gen_package(){
+_gen_package() {
     local bin_name
 
     echo "package() {"

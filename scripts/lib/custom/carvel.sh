@@ -24,8 +24,8 @@ gh release view \
     >"$_tmp_file"
 for _arch_pkg in "${arch[@]}"; do
     case "$_arch_pkg" in
-    x86_64) _arch_bin=amd64 ;;
-    aarch64) _arch_bin=arm64 ;;
+        x86_64) _arch_bin=amd64 ;;
+        aarch64) _arch_bin=arm64 ;;
     esac
 
     _source="$(
