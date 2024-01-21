@@ -110,6 +110,7 @@ pkgdesc='${pkgdesc:?}'
 url='${url:?}'
 arch=(${arch[@]:-any})
 license=(${license[@]:-unknown})
+install='${install:-}'
 EOF
 
 arrays=(
