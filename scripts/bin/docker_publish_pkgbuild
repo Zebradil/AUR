@@ -8,7 +8,7 @@ LIB_DIR="$BIN_DIR/../lib"
 source "$LIB_DIR/ci.sh"
 
 # Default values
-ASSETS="${ASSETS:-}"
+ASSETS="${ASSETS:-"*.install"}"
 AUR_DEPS="${AUR_DEPS:-}"
 BUILD_FLAGS="${BUILD_FLAGS:-"--clean --cleanbuild --nodeps"}"
 COMMIT_MESSAGE="${COMMIT_MESSAGE:-"Update PKGBUILD and .SRCINFO with GitHub Actions"}"
