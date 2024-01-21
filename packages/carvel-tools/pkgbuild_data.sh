@@ -23,6 +23,7 @@ url="https://carvel.dev"
 license=(Apache)
 provides=("${_tools[@]}")
 conflicts=("${_tools[@]}")
+install='0.install'
 
 _retrieve_data() {
     local project
