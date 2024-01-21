@@ -5,7 +5,7 @@
 # shellcheck disable=SC2034,SC2154
 pkgname=carvel-tools
 pkgver=20240121
-pkgrel=2
+pkgrel=3
 pkgdesc='Deprecated: install carvel tools separately'
 url='https://carvel.dev'
 arch=(x86_64 aarch64)
@@ -46,3 +46,8 @@ package ()
     "${pkgdir}/usr/bin/ytt" completion fish | install -Dm644 /dev/stdin "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}-ytt.fish";
     "${pkgdir}/usr/bin/ytt" completion zsh | install -Dm644 /dev/stdin "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}-ytt"
 }
+
+
+# Custom variables
+
+_z_assets=([0]="0.install")
