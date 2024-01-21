@@ -23,7 +23,7 @@ url="https://carvel.dev"
 license=(Apache)
 provides=("${_tools[@]}")
 conflicts=("${_tools[@]}")
-install='0.install'
+install='1.install'
 _z_assets=("$install")
 
 _retrieve_data() {
@@ -46,8 +46,8 @@ _retrieve_data() {
 
         for arch_pkg in "${arch[@]}"; do
             case "${arch_pkg}" in
-            x86_64) arch_bin=amd64 ;;
-            aarch64) arch_bin=arm64 ;;
+                x86_64) arch_bin=amd64 ;;
+                aarch64) arch_bin=arm64 ;;
             esac
 
             jq --raw-output \
@@ -59,8 +59,8 @@ _retrieve_data() {
                 >>"${_tmpdir}/_source_${arch_pkg}"
 
             jq --raw-output '.body' <"${tmp_file}" |
-                sed --silent --regexp-extended "s/^([a-z0-9]{64})\s+.*linux-$arch_bin.*$/\1/p" \
-                    >>"${_tmpdir}/_hashsum_${arch_pkg}"
+            sed --silent --regexp-extended "s/^([a-z0-9]{64})\s+.*linux-$arch_bin.*$/\1/p" \
+                >>"${_tmpdir}/_hashsum_${arch_pkg}"
         done
     done
 }
