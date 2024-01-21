@@ -116,8 +116,13 @@ jobs:
         id: cache
         uses: actions/cache@v4
         with:
+          # NOTE: `packages/*/*` instead of `packages/*` or `packages/**` has to be used as a workaround for the bugs:
+          # - https://github.com/actions/cache/issues/364
+          # - https://github.com/actions/toolkit/issues/713
+          # Otherwise, the excluded files are still cached.
+          # GitHub Actions is disappointing.
           path: |
-            packages/**
+            packages/*/*
             !packages/*/PKGBUILD
             !packages/*/pkgbuild_data.sh
           key: generate_pkgbuilds-latest-${{ github.run_id }}
