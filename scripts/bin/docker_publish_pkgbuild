@@ -106,7 +106,7 @@ log::group "Copying files into $LOCAL_REPO_DIR"
 # Ignore quote rule because we need to expand glob patterns to copy $ASSETS
 if [[ -n $ASSETS ]]; then
     log::info "Copying $ASSETS"
-    cp -rt "$LOCAL_REPO_DIR/" $ASSETS
+    cp --verbose --recursive --target-directory "$LOCAL_REPO_DIR/" $ASSETS || true
 fi
 log::endgroup
 
