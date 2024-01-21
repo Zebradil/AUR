@@ -24,6 +24,7 @@ license=(Apache)
 provides=("${_tools[@]}")
 conflicts=("${_tools[@]}")
 install='0.install'
+_z_assets=("$install")
 
 _retrieve_data() {
     local project

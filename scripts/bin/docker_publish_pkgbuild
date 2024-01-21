@@ -8,13 +8,12 @@ LIB_DIR="$BIN_DIR/../lib"
 source "$LIB_DIR/ci.sh"
 
 # Default values
-ASSETS="${ASSETS:-"*.install"}"
+ASSETS="${ASSETS:-}"
 AUR_DEPS="${AUR_DEPS:-}"
 BUILD_FLAGS="${BUILD_FLAGS:-"--clean --cleanbuild --nodeps"}"
 COMMIT_MESSAGE="${COMMIT_MESSAGE:-"Update PKGBUILD and .SRCINFO with GitHub Actions"}"
 POST_PROCESS="${POST_PROCESS:-}"
 SSH_KEYSCAN_TYPES="${SSH_KEYSCAN_TYPES:-"rsa,dsa,ecdsa,ed25519"}"
-
 
 REQUIRED_INPUTS=(
     COMMIT_EMAIL
@@ -23,6 +22,8 @@ REQUIRED_INPUTS=(
     PKGNAME
     SSH_PRIVATE_KEY
 )
+
+PKGBASE="$(basename "$PKGBUILD")"
 
 for input in "${REQUIRED_INPUTS[@]}"; do
     ci::assert_non_empty "$input" "${!input}"
@@ -43,6 +44,7 @@ done
 
 # Overrides from the PKGBUILD file
 ALLOWED_Z_VAR_NAMES=(
+    _z_assets
     _z_aur_deps
     _z_build
     _z_build_opts
@@ -55,6 +57,10 @@ while read -r z_var; do
     log::debug "Evaluating $z_var"
     eval "$z_var"
 done <<<"$Z_VARS"
+
+if [[ -n ${_z_assets:-} ]]; then
+    ASSETS="${_z_assets[*]}"
+fi
 
 if [[ -n ${_z_aur_deps:-} ]]; then
     AUR_DEPS="${_z_aur_deps[*]}"
@@ -100,13 +106,16 @@ log::endgroup
 log::group "Copying files into $LOCAL_REPO_DIR"
 {
     log::info "Copying $PKGBUILD"
-    cp -r "$PKGBUILD" "$LOCAL_REPO_DIR/PKGBUILD"
+    cp --verbose "$PKGBUILD" "$LOCAL_REPO_DIR/PKGBUILD"
 }
 # shellcheck disable=SC2086
 # Ignore quote rule because we need to expand glob patterns to copy $ASSETS
 if [[ -n $ASSETS ]]; then
-    log::info "Copying $ASSETS"
-    cp --verbose --recursive --target-directory "$LOCAL_REPO_DIR/" $ASSETS || true
+    log::info "Copying $ASSETS from $PKGBASE"
+    (
+        cd "$PKGBASE" || exit 1
+        cp --verbose --recursive --target-directory "$LOCAL_REPO_DIR/" $ASSETS || true
+    )
 fi
 log::endgroup
 
@@ -122,6 +131,8 @@ fi
 if [[ $BUILD == "true" ]]; then
     if [[ -n $AUR_DEPS ]]; then
         log::group "Installing AUR dependencies"
+        # shellcheck disable=SC2086
+        # Ignore quote rule because we need to expand glob patterns to install $AUR_DEPS
         yay -Suy --noconfirm --needed $AUR_DEPS
         log::endgroup
     fi
@@ -142,15 +153,9 @@ if [[ -n $POST_PROCESS ]]; then
 fi
 
 log::group "Committing files to the repository"
-if [[ -z $ASSETS ]]; then
-    # When $ASSETS are not set, we can add just PKGBUILD and .SRCINFO
-    # This is to prevent unintended behaviour and maintain backwards compatibility
-    git add -fv PKGBUILD .SRCINFO
-else
-    # We cannot just re-use $ASSETS because it contains absolute paths outside repository
-    # But we can just add all files in the repository which should also include all $ASSETS
-    git add --all
-fi
+# shellcheck disable=SC2086
+# Ignore quote rule because we need to expand glob patterns to stage $ASSETS
+git add -fv PKGBUILD .SRCINFO $ASSETS
 
 if [[ $ALLOW_EMPTY_COMMITS == "true" ]]; then
     log::info "Allowing empty commits"
