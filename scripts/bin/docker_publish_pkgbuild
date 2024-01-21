@@ -23,7 +23,7 @@ REQUIRED_INPUTS=(
     SSH_PRIVATE_KEY
 )
 
-PKGBASE="$(basename "$PKGBUILD")"
+PKGBASE="$(dirname "$PKGBUILD")"
 
 for input in "${REQUIRED_INPUTS[@]}"; do
     ci::assert_non_empty "$input" "${!input}"
