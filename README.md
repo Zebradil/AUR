@@ -22,7 +22,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | Package | Version | AUR | Description |
 | ------- | ------- | --- | ----------- |
 | [alacritty-colorscheme-git](https://github.com/zebradil/alacritty-colorscheme/) | r51.257e466-2 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
-| [carvel-tools](https://carvel.dev) | 20240129-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
+| [carvel-tools](https://carvel.dev) | 20240207-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
 | [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.0.2-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
 | [cloudflare-dynamic-dns-bin¹](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.0.2-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Dynamic DNS client for Cloudflare |
 | [imgpkg](https://carvel.dev/imgpkg) | 0.40.0-2 | [link](https://aur.archlinux.org/packages/imgpkg) | Store application configuration files in Docker/OCI registries |
@@ -46,8 +46,8 @@ Depending on what you want to do, you may need the following tools/packages:
 | [vendir-bin](https://carvel.dev/vendir) | 0.39.0-1 | [link](https://aur.archlinux.org/packages/vendir-bin) | Easy way to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively |
 | [xkb-switch-i3](https://github.com/zebradil/xkb-switch-i3) | 2.0.1+i3_5-9 | [link](https://aur.archlinux.org/packages/xkb-switch-i3) | Program that allows to query and change the XKB layout state (with i3wm auto-switch mode) |
 | [xkb-switch-i3-git](https://github.com/zebradil/xkb-switch-i3) | 2.0.1+i3_5-6 | [link](https://aur.archlinux.org/packages/xkb-switch-i3-git) | Program that allows to query and change the XKB layout state (with i3wm auto-switch mode) |
-| [ytt](https://carvel.dev/ytt) | 0.47.0-2 | [link](https://aur.archlinux.org/packages/ytt) | YAML templating tool that works on YAML structure instead of text |
-| [ytt-bin](https://carvel.dev/ytt) | 0.47.0-5 | [link](https://aur.archlinux.org/packages/ytt-bin) | YAML templating tool that works on YAML structure instead of text |
+| [ytt](https://carvel.dev/ytt) | 0.48.0-1 | [link](https://aur.archlinux.org/packages/ytt) | YAML templating tool that works on YAML structure instead of text |
+| [ytt-bin](https://carvel.dev/ytt) | 0.48.0-1 | [link](https://aur.archlinux.org/packages/ytt-bin) | YAML templating tool that works on YAML structure instead of text |
 
 ¹ - Package is maintained in the AUR but not in this repository.
     Check the PKGBUILD file of the package for more information.
