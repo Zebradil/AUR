@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -euo pipefail
+
+PKGNAME="${1:?set package name}"
+
+runuser -u builder -- cp "/repo/packages/$PKGNAME/PKGBUILD" ./
+
+eval "$(grep -E "_z_aur_deps=" PKGBUILD)"
+if [[ -n "${_z_aur_deps[*]}" ]]; then
+    runuser -u builder -- \
+        yay -S \
+        --noconfirm \
+        --needed \
+        "${_z_aur_deps[@]}"
+fi
+
+runuser -u builder -- \
+    makepkg \
+    --syncdeps \
+    --noconfirm \
+    --skippgpcheck \
+    --cleanbuild

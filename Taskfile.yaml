@@ -34,26 +34,7 @@ tasks:
 
         task {{.TASK}} -- vendir
     cmds:
-      - |
-        docker compose run aur -c '
-          set -eo pipefail
-          cd /tmp
-          runuser -u builder -- \
-            cp /repo/packages/{{.CLI_ARGS}}/PKGBUILD ./
-          eval "$(grep -E "_z_aur_deps=" PKGBUILD)"
-          if [[ -n "${_z_aur_deps[*]}" ]]; then
-            runuser -u builder -- \
-              yay -S \
-                --noconfirm \
-                --needed \
-                "${_z_aur_deps[@]}"
-          fi
-          runuser -u builder -- \
-            makepkg \
-              --syncdeps \
-              --noconfirm \
-              --skippgpcheck \
-              --cleanbuild'
+      - docker compose run aur -c 'cd /tmp && /repo/scripts/bin/docker_make_pkg {{.CLI_ARGS}}'
 
   docs:update_readme:
     desc: Update the README.md file
