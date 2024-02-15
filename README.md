@@ -23,7 +23,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | ------- | ------- | --- | ----------- |
 | [alacritty-colorscheme-git](https://github.com/zebradil/alacritty-colorscheme/) | r51.257e466-2 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
 | [carvel-tools](https://carvel.dev) | 20240207-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
-| [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.0.2-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
+| [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.0.3-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
 | [cloudflare-dynamic-dns-bin¹](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.0.3-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Dynamic DNS client for Cloudflare |
 | [imgpkg](https://carvel.dev/imgpkg) | 0.40.0-2 | [link](https://aur.archlinux.org/packages/imgpkg) | Store application configuration files in Docker/OCI registries |
 | [imgpkg-bin](https://carvel.dev/imgpkg) | 0.40.0-5 | [link](https://aur.archlinux.org/packages/imgpkg-bin) | Store application configuration files in Docker/OCI registries |
@@ -33,7 +33,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [kbld-bin](https://carvel.dev/kbld) | 0.39.0-1 | [link](https://aur.archlinux.org/packages/kbld-bin) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
 | [kubectl-gke-rapid-bin](https://github.com/kubernetes/kubectl) | v1.25.16-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-rapid-bin) | Kubernetes.io client binary, compatible with the GKE version from the rapid channel |
 | [kubectl-gke-regular-bin](https://github.com/kubernetes/kubectl) | v1.25.16-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-regular-bin) | Kubernetes.io client binary, compatible with the GKE version from the regular channel |
-| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.27.10-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
+| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.27.11-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
 | [kwt](https://github.com/carvel-dev/kwt) | 0.0.8-3 | [link](https://aur.archlinux.org/packages/kwt) | Kubernetes Workstation Tools CLI |
 | [kwt-bin](https://github.com/carvel-dev/kwt) | 0.0.8-9 | [link](https://aur.archlinux.org/packages/kwt-bin) | Kubernetes Workstation Tools CLI |
