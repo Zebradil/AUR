@@ -35,7 +35,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [kctrl-bin](https://carvel.dev/kapp-controller) | 0.50.0-1 | [link](https://aur.archlinux.org/packages/kctrl-bin) | Continuous delivery and package management for Kubernetes. |
 | [kubectl-gke-rapid-bin](https://github.com/kubernetes/kubectl) | v1.29.2-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-rapid-bin) | Kubernetes.io client binary, compatible with the GKE version from the rapid channel |
 | [kubectl-gke-regular-bin](https://github.com/kubernetes/kubectl) | v1.25.16-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-regular-bin) | Kubernetes.io client binary, compatible with the GKE version from the regular channel |
-| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.26.14-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
+| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.26.15-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
 | [kwt](https://github.com/carvel-dev/kwt) | 0.0.8-4 | [link](https://aur.archlinux.org/packages/kwt) | Kubernetes Workstation Tools CLI |
 | [kwt-bin](https://github.com/carvel-dev/kwt) | 0.0.8-9 | [link](https://aur.archlinux.org/packages/kwt-bin) | Kubernetes Workstation Tools CLI |
