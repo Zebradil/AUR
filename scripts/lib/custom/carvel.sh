@@ -14,6 +14,7 @@ else
 fi
 
 provides=("$_z_binname")
+conflicts=("$_z_binname")
 arch=(x86_64 aarch64)
 
 _tmp_file="$(mktemp)"
