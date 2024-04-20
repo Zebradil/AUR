@@ -1,25 +1,25 @@
 # shellcheck shell=bash
 
 log::group() {
-    echo "::group::$*"
+  echo "::group::$*"
 }
 
 log::endgroup() {
-    echo "::endgroup::"
+  echo "::endgroup::"
 }
 
 log::debug() {
-    echo "::debug::$*"
+  echo "::debug::$*"
 }
 
 log::info() {
-    echo "::notice::$*"
+  echo "::notice::$*"
 }
 
 log::warn() {
-    echo "::warning::$*"
+  echo "::warning::$*"
 }
 
 log::error() {
-    echo "::error::$*"
+  echo "::error::$*"
 }

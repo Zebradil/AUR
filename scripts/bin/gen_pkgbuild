@@ -47,9 +47,11 @@ if [[ $# -ne 1 ]]; then
     exit 1
 fi
 
-BIN_DIR="$(cd -- "$(dirname $(readlink -f -- "${BASH_SOURCE[0]}"))" &>/dev/null && pwd)"
+BIN_DIR="$(cd -- "$(dirname "$(readlink -f -- "${BASH_SOURCE[0]}")")" &>/dev/null && pwd)"
 LIB_DIR="$BIN_DIR/../lib"
+# shellcheck source=../lib/logger.sh
 source "$LIB_DIR/logger.sh"
+# shellcheck source=../lib/pkgbuild.sh
 source "$LIB_DIR/pkgbuild.sh"
 
 ROOT="$(git rev-parse --show-toplevel)"
@@ -74,7 +76,7 @@ if [[ ! -f "$dest_pkgbuild" ]]; then
         echo "# This is a temporary PKGBUILD file."
         echo "# It must have been overwritten by the update-all script."
         echo "# So, if you see this file, it means that something went wrong."
-    } > "$dest_pkgbuild"
+    } >"$dest_pkgbuild"
 fi
 
 dest_pkgver="$(sed -rn 's/^pkgver=(.+)/\1/p' "$dest_pkgbuild")"
@@ -89,10 +91,10 @@ fi
 log::debug "Generating $tmp_pkgbuild..."
 
 if [[ -n ${header:-} ]]; then
-    echo -e "$header\n" > "$tmp_pkgbuild"
+    echo -e "$header\n" >"$tmp_pkgbuild"
 else
     contributors=("${contributors[@]:-}")
-    pkgb:header contributors > "$tmp_pkgbuild"
+    pkgb:header contributors >"$tmp_pkgbuild"
 fi
 
 tmp_pkgver="${pkgver:-$(date +%Y%m%d)}"

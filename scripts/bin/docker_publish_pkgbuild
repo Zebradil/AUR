@@ -3,8 +3,9 @@
 
 set -euo pipefail
 
-BIN_DIR="$(cd -- "$(dirname $(readlink -f -- "${BASH_SOURCE[0]}"))" &>/dev/null && pwd)"
+BIN_DIR="$(cd -- "$(dirname "$(readlink -f -- "${BASH_SOURCE[0]}")")" &>/dev/null && pwd)"
 LIB_DIR="$BIN_DIR/../lib"
+# shellcheck source=../lib/ci.sh
 source "$LIB_DIR/ci.sh"
 
 # Default values
@@ -38,7 +39,7 @@ BOOLEAN_INPUTS=(
 )
 
 for input in "${BOOLEAN_INPUTS[@]}"; do
-    declare $input="${!input:-false}"
+    declare "$input"="${!input:-false}"
     ci::assert_boolean "$input" "${!input}"
 done
 
@@ -50,6 +51,7 @@ ALLOWED_Z_VAR_NAMES=(
     _z_build_opts
     _z_update_hashsums
 )
+# shellcheck disable=SC2178
 ALLOWED_Z_VAR_NAMES="${ALLOWED_Z_VAR_NAMES[*]}"
 Z_VARS="$(grep -E "^(${ALLOWED_Z_VAR_NAMES// /|})=" "$PKGBUILD" || true)"
 
@@ -89,14 +91,15 @@ log::group "Adding aur.archlinux.org to known hosts..."
 ssh-keyscan -t "$SSH_KEYSCAN_TYPES" aur.archlinux.org >>~/.ssh/known_hosts
 log::endgroup
 
+# shellcheck disable=SC2153
 ci::import_ssh_key "$SSH_PRIVATE_KEY"
 ci::set_git_user "$COMMIT_USERNAME" "$COMMIT_EMAIL"
 
 log::group "Cloning $PKGNAME into $LOCAL_REPO_DIR"
 # Cloning is often fails, so we retry it
 for i in {1..5}; do
-    git clone --depth 1 -v "ssh://aur@aur.archlinux.org/${PKGNAME}.git" "$LOCAL_REPO_DIR" \
-        && break
+    git clone --depth 1 -v "ssh://aur@aur.archlinux.org/${PKGNAME}.git" "$LOCAL_REPO_DIR" &&
+        break
     delay=$((i * 5))
     log::warn "Cloning failed, retrying in $delay seconds..."
     sleep "$delay"
@@ -137,7 +140,7 @@ if [[ $BUILD == "true" ]]; then
         log::endgroup
     fi
     log::group "Building package with makepkg"
-    read -r -a build_flags <<< "$BUILD_FLAGS"
+    read -r -a build_flags <<<"$BUILD_FLAGS"
     makepkg "${build_flags[@]}"
     log::endgroup
 fi

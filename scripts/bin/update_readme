@@ -26,7 +26,8 @@ rdm:update() {
 
     local file="${1:?Specify file}"
     local maintainer="${2:?Specify maintainer}"
-    local tmp_file="$(mktemp --suffix='.md')"
+    local tmp_file
+    tmp_file="$(mktemp --suffix='.md')"
     cp "$file" "$tmp_file"
 
     if [[ -n "$maintainer" ]]; then
@@ -46,7 +47,8 @@ rdm:inject_maintained_packages() {
 
     local file="${1:?Specify file}"
     local maintainer="${2:?Specify maintainer}"
-    local tmp_file="$(mktemp --suffix='.packages.md')"
+    local tmp_file
+    tmp_file="$(mktemp --suffix='.packages.md')"
 
     sed -n "1,/$begin_marker/p" "$file" >"$tmp_file"
 

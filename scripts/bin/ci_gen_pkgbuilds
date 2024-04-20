@@ -2,9 +2,11 @@
 
 set -euo pipefail
 
-BIN_DIR="$(cd -- "$(dirname $(readlink -f -- "${BASH_SOURCE[0]}"))" &>/dev/null && pwd)"
+BIN_DIR="$(cd -- "$(dirname "$(readlink -f -- "${BASH_SOURCE[0]}")")" &>/dev/null && pwd)"
 LIB_DIR="$BIN_DIR/../lib"
+# shellcheck source=../lib/aur.sh
 source "$LIB_DIR/aur.sh"
+# shellcheck source=../lib/ci.sh
 source "$LIB_DIR/ci.sh"
 
 updated_packages=()
@@ -17,7 +19,7 @@ for package in packages/*; do
     if git diff --cached --quiet; then
         log::info "No changes for $pp, check if the AUR version differs from the local version"
         aur_pkgbuild="/tmp/aur.$pp.PKGBUILD"
-        aur:download_file "$pp" PKGBUILD > "$aur_pkgbuild"
+        aur:download_file "$pp" PKGBUILD >"$aur_pkgbuild"
         if ! diff -q "$package/PKGBUILD" "$aur_pkgbuild"; then
             log::info "AUR version differs from the local version, update is required"
             updated_packages+=("$pp")
@@ -32,13 +34,13 @@ done
 
 if [[ ${#updated_packages[@]} -gt 0 ]]; then
     echo "Updated packages: ${updated_packages[*]}"
-    echo "updated_packages=$( \
-                printf '%s\n' "${updated_packages[@]}" \
-                  | jq -Rnc '[inputs]' \
-              )" >> $GITHUB_OUTPUT
+    echo "updated_packages=$(
+        printf '%s\n' "${updated_packages[@]}" |
+            jq -Rnc '[inputs]'
+    )" >>"$GITHUB_OUTPUT"
 else
     echo "No packages updated"
-    echo "updated_packages=[]" >> $GITHUB_OUTPUT
+    echo "updated_packages=[]" >>"$GITHUB_OUTPUT"
 fi
 
-echo "last_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+echo "last_sha=$(git rev-parse HEAD)" >>"$GITHUB_OUTPUT"

@@ -1,7 +1,9 @@
 FROM ghcr.io/archlinux/archlinux:base-devel-20240420.0.230279
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN --mount=type=cache,target=/var/cache/pacman/pkg \
-  pacman -Suy --noconfirm --needed --overwrite '*' \
+    pacman -Suy --noconfirm --needed --overwrite '*' \
       diffutils \
       git \
       github-cli \
@@ -10,8 +12,9 @@ RUN --mount=type=cache,target=/var/cache/pacman/pkg \
       pacman-contrib
 
 # Install common package make dependencies
+# hadolint ignore=DL3059
 RUN --mount=type=cache,target=/var/cache/pacman/pkg \
-  pacman -Suy --noconfirm --needed --overwrite '*' \
+    pacman -Suy --noconfirm --needed --overwrite '*' \
       go
 
 # Install yay from GitHub
@@ -34,5 +37,6 @@ COPY --link . "${APP_ROOT}"
 
 RUN docker_prepare
 
+# hadolint ignore=DL3059
 RUN ln -s "$BIN_DIR/docker_entrypoint" /docker_entrypoint
 ENTRYPOINT ["/docker_entrypoint"]

@@ -3,7 +3,7 @@
 pkgname=rustotpony-bin
 _repo="zebradil/${pkgname%-bin}"
 _binname=totp
-provides=($_binname)
+provides=("$_binname")
 pkgver="$(pkgb:get_latest_github_release "$_repo")"
 pkgdesc='RusTOTPony — CLI manager of one-time password generators like Google Authenticator'
 pkgrel=2
@@ -16,7 +16,7 @@ sha256sums=('')
 _z_update_hashsums=true
 
 package() {
-    set -eo pipefail
-    _binname=totp
-    install -Dm755 "${srcdir}/${pkgname}-${pkgver}" "${pkgdir}/usr/bin/${_binname}"
+  set -eo pipefail
+  _binname=totp
+  install -Dm755 "${srcdir}/${pkgname}-${pkgver}" "${pkgdir}/usr/bin/${_binname}"
 }

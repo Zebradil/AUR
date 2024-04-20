@@ -24,10 +24,10 @@ LOGGER_LOG_LEVEL="${LOGGER_LOG_LEVEL:-info}"
 # Outputs:
 #   None
 log::_is_level() {
-    local level="${1:?}"
-    level="${level,,}"
-    [[ -z "${LOGGER_LOG_LEVELS[$level]}" ]] && return 1
-    ((${LOGGER_LOG_LEVELS[${LOGGER_LOG_LEVEL,,}]} <= ${LOGGER_LOG_LEVELS[$level]}))
+  local level="${1:?}"
+  level="${level,,}"
+  [[ -z "${LOGGER_LOG_LEVELS[$level]}" ]] && return 1
+  ((${LOGGER_LOG_LEVELS[${LOGGER_LOG_LEVEL,,}]} <= ${LOGGER_LOG_LEVELS[$level]}))
 }
 
 # Wraps the given string in the given escape sequence
@@ -39,56 +39,56 @@ log::_is_level() {
 # Outputs:
 #   The wrapped string
 log::_logger_wrap_escape() {
-    echo -ne "${1:?}${2:?}${LOGGER_COLOR_RESET}"
+  echo -ne "${1:?}${2:?}${LOGGER_COLOR_RESET}"
 }
 
 log::_logger_color() {
-    local level="${1:?}"
-    local marker="${2:?}"
-    local paint="${3:?}"
-    shift 3
+  local level="${1:?}"
+  local marker="${2:?}"
+  local paint="${3:?}"
+  shift 3
 
-    if log::_is_level "$level"; then
-        log::_logger_wrap_escape "$paint" "$marker"
-        echo -e " $*"
-    fi
+  if log::_is_level "$level"; then
+    log::_logger_wrap_escape "$paint" "$marker"
+    echo -e " $*"
+  fi
 }
 
 log::highlight() {
-    log::_logger_wrap_escape "$LOGGER_COLOR_HIGHLIGHT" "$1" >&2
+  log::_logger_wrap_escape "$LOGGER_COLOR_HIGHLIGHT" "$1" >&2
 }
 
 log::success() {
-    log::_logger_color all "SUCCESS" "$LOGGER_COLOR_SUCCESS" "$@" >&2
+  log::_logger_color all "SUCCESS" "$LOGGER_COLOR_SUCCESS" "$@" >&2
 }
 
 log::failure() {
-    log::_logger_color all "FAILURE" "$LOGGER_COLOR_FAILURE" "$@" >&2
+  log::_logger_color all "FAILURE" "$LOGGER_COLOR_FAILURE" "$@" >&2
 }
 
 log::debug() {
-    log::_logger_color debug DBG "$LOGGER_COLOR_DEBUG" "$@" >&2
+  log::_logger_color debug DBG "$LOGGER_COLOR_DEBUG" "$@" >&2
 }
 
 log::info() {
-    log::_logger_color info INF "$LOGGER_COLOR_INFO" "$@" >&2
+  log::_logger_color info INF "$LOGGER_COLOR_INFO" "$@" >&2
 }
 
 log::warn() {
-    log::_logger_color warn WRN "$LOGGER_COLOR_WARN" "$@" >&2
+  log::_logger_color warn WRN "$LOGGER_COLOR_WARN" "$@" >&2
 }
 
 log::error() {
-    log::_logger_color error ERR "$LOGGER_COLOR_ERROR" "$@" >&2
+  log::_logger_color error ERR "$LOGGER_COLOR_ERROR" "$@" >&2
 }
 
 log::_test() (
-    LOGGER_LOG_LEVEL=debug
-    log::debug "This is a debug message"
-    log::info "This is an info message"
-    log::warn "This is a warning message"
-    log::error "This is an error message"
-    log::success "This is a success message"
-    log::failure "This is a failure message"
-    log::highlight "This is a highlight message"
+  LOGGER_LOG_LEVEL=debug
+  log::debug "This is a debug message"
+  log::info "This is an info message"
+  log::warn "This is a warning message"
+  log::error "This is an error message"
+  log::success "This is a success message"
+  log::failure "This is a failure message"
+  log::highlight "This is a highlight message"
 )
