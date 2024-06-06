@@ -24,7 +24,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [alacritty-colorscheme-git](https://github.com/zebradil/alacritty-colorscheme/) | r51.257e466-2 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
 | [carvel-tools](https://carvel.dev) | 20240513-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
 | [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.2.6-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
-| [cloudflare-dynamic-dns-bin¹](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.2.6-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Dynamic DNS client for Cloudflare with IPv6/IPv4 support |
+| [cloudflare-dynamic-dns-bin¹](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.2.7-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Dynamic DNS client for Cloudflare with IPv6/IPv4 support |
 | [gke-kubeconfiger-bin¹](https://github.com/zebradil/gke-kubeconfiger) | 0.2.4-1 | [link](https://aur.archlinux.org/packages/gke-kubeconfiger-bin) | Setup kubeconfigs for all accessible GKE clusters. |
 | [imgpkg](https://carvel.dev/imgpkg) | 0.42.1-1 | [link](https://aur.archlinux.org/packages/imgpkg) | Store application configuration files in Docker/OCI registries |
 | [imgpkg-bin](https://carvel.dev/imgpkg) | 0.42.1-1 | [link](https://aur.archlinux.org/packages/imgpkg-bin) | Store application configuration files in Docker/OCI registries |
@@ -40,7 +40,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
 | [kwt](https://github.com/carvel-dev/kwt) | 0.0.8-4 | [link](https://aur.archlinux.org/packages/kwt) | Kubernetes Workstation Tools CLI |
 | [kwt-bin](https://github.com/carvel-dev/kwt) | 0.0.8-10 | [link](https://aur.archlinux.org/packages/kwt-bin) | Kubernetes Workstation Tools CLI |
-| [myks-bin¹](https://github.com/mykso/myks) | 4.1.2-1 | [link](https://aur.archlinux.org/packages/myks-bin) | Configuration framework for Kubernetes applications |
+| [myks-bin¹](https://github.com/mykso/myks) | 4.1.3-1 | [link](https://aur.archlinux.org/packages/myks-bin) | Configuration framework for Kubernetes applications |
 | [pdfrrr¹](https://github.com/zebradil/pdfrrr) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/pdfrrr) | Rotate pdf pages automatically |
 | [python-powerline-taskwarrior](https://github.com/Zebradil/powerline-taskwarrior) | 2.0.0-18 | [link](https://aur.archlinux.org/packages/python-powerline-taskwarrior) | Powerline segment for showing information from Taskwarrior task manager |
 | [rustotpony¹](https://github.com/zebradil/rustotpony) | 0.4.4-3 | [link](https://aur.archlinux.org/packages/rustotpony) | RusTOTPony — CLI manager of one-time password generators like Google Authenticator |
