@@ -43,7 +43,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [myks-bin¹](https://github.com/mykso/myks) | 4.1.3-1 | [link](https://aur.archlinux.org/packages/myks-bin) | Configuration framework for Kubernetes applications |
 | [pdfrrr¹](https://github.com/zebradil/pdfrrr) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/pdfrrr) | Rotate pdf pages automatically |
 | [python-powerline-taskwarrior](https://github.com/Zebradil/powerline-taskwarrior) | 2.0.0-18 | [link](https://aur.archlinux.org/packages/python-powerline-taskwarrior) | Powerline segment for showing information from Taskwarrior task manager |
-| [rustotpony¹](https://github.com/zebradil/rustotpony) | 0.4.4-3 | [link](https://aur.archlinux.org/packages/rustotpony) | RusTOTPony — CLI manager of one-time password generators like Google Authenticator |
+| [rustotpony](https://github.com/zebradil/rustotpony) | 0.4.4-3 | [link](https://aur.archlinux.org/packages/rustotpony) | RusTOTPony — CLI manager of one-time password generators like Google Authenticator |
 | [rustotpony-bin](https://github.com/zebradil/rustotpony) | 0.4.5-2 | [link](https://aur.archlinux.org/packages/rustotpony-bin) | RusTOTPony — CLI manager of one-time password generators like Google Authenticator |
 | [vendir](https://carvel.dev/vendir) | 0.40.1-1 | [link](https://aur.archlinux.org/packages/vendir) | Easy way to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively |
 | [vendir-bin](https://carvel.dev/vendir) | 0.40.1-2 | [link](https://aur.archlinux.org/packages/vendir-bin) | Easy way to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively |
