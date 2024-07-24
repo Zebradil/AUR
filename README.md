@@ -22,7 +22,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | Package | Version | AUR | Description |
 | ------- | ------- | --- | ----------- |
 | [alacritty-colorscheme-git](https://github.com/zebradil/alacritty-colorscheme/) | r51.257e466-2 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
-| [carvel-tools](https://carvel.dev) | 20240718-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
+| [carvel-tools](https://carvel.dev) | 20240724-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
 | [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.2.11-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
 | [cloudflare-dynamic-dns-bin¹](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.2.11-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Dynamic DNS client for Cloudflare with IPv6/IPv4 support |
 | [gke-kubeconfiger-bin¹](https://github.com/zebradil/gke-kubeconfiger) | 0.4.1-1 | [link](https://aur.archlinux.org/packages/gke-kubeconfiger-bin) | Setup kubeconfigs for all accessible GKE clusters. |
@@ -32,11 +32,11 @@ Depending on what you want to do, you may need the following tools/packages:
 | [kapp-bin](https://carvel.dev/kapp) | 0.63.2-1 | [link](https://aur.archlinux.org/packages/kapp-bin) | kapp is a simple deployment tool focused on the concept of "Kubernetes application" — a set of resources with the same label |
 | [kbld](https://carvel.dev/kbld) | 0.44.0-1 | [link](https://aur.archlinux.org/packages/kbld) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
 | [kbld-bin](https://carvel.dev/kbld) | 0.44.0-1 | [link](https://aur.archlinux.org/packages/kbld-bin) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
-| [kctrl](https://carvel.dev/kapp-controller) | 0.52.0-1 | [link](https://aur.archlinux.org/packages/kctrl) | Continuous delivery and package management for Kubernetes. |
-| [kctrl-bin](https://carvel.dev/kapp-controller) | 0.52.0-1 | [link](https://aur.archlinux.org/packages/kctrl-bin) | Continuous delivery and package management for Kubernetes. |
+| [kctrl](https://carvel.dev/kapp-controller) | 0.53.0-1 | [link](https://aur.archlinux.org/packages/kctrl) | Continuous delivery and package management for Kubernetes. |
+| [kctrl-bin](https://carvel.dev/kapp-controller) | 0.53.0-1 | [link](https://aur.archlinux.org/packages/kctrl-bin) | Continuous delivery and package management for Kubernetes. |
 | [kubectl-gke-rapid-bin](https://github.com/kubernetes/kubectl) | v1.27.16-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-rapid-bin) | Kubernetes.io client binary, compatible with the GKE version from the rapid channel |
-| [kubectl-gke-regular-bin](https://github.com/kubernetes/kubectl) | v1.29.7-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-regular-bin) | Kubernetes.io client binary, compatible with the GKE version from the regular channel |
-| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.29.7-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
+| [kubectl-gke-regular-bin](https://github.com/kubernetes/kubectl) | v1.27.16-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-regular-bin) | Kubernetes.io client binary, compatible with the GKE version from the regular channel |
+| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.27.16-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
 | [kwt](https://github.com/carvel-dev/kwt) | 0.0.8-4 | [link](https://aur.archlinux.org/packages/kwt) | Kubernetes Workstation Tools CLI |
 | [kwt-bin](https://github.com/carvel-dev/kwt) | 0.0.8-10 | [link](https://aur.archlinux.org/packages/kwt-bin) | Kubernetes Workstation Tools CLI |
