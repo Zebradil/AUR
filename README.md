@@ -35,8 +35,8 @@ Depending on what you want to do, you may need the following tools/packages:
 | [kctrl](https://carvel.dev/kapp-controller) | 0.53.0-1 | [link](https://aur.archlinux.org/packages/kctrl) | Continuous delivery and package management for Kubernetes. |
 | [kctrl-bin](https://carvel.dev/kapp-controller) | 0.53.0-1 | [link](https://aur.archlinux.org/packages/kctrl-bin) | Continuous delivery and package management for Kubernetes. |
 | [kubectl-gke-rapid-bin](https://github.com/kubernetes/kubectl) | v1.30.4-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-rapid-bin) | Kubernetes.io client binary, compatible with the GKE version from the rapid channel |
-| [kubectl-gke-regular-bin](https://github.com/kubernetes/kubectl) | v1.29.7-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-regular-bin) | Kubernetes.io client binary, compatible with the GKE version from the regular channel |
-| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.29.7-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
+| [kubectl-gke-regular-bin](https://github.com/kubernetes/kubectl) | v1.29.8-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-regular-bin) | Kubernetes.io client binary, compatible with the GKE version from the regular channel |
+| [kubectl-gke-stable-bin](https://github.com/kubernetes/kubectl) | v1.29.8-1 | [link](https://aur.archlinux.org/packages/kubectl-gke-stable-bin) | Kubernetes.io client binary, compatible with the GKE version from the stable channel |
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
 | [kwt](https://github.com/carvel-dev/kwt) | 0.0.8-4 | [link](https://aur.archlinux.org/packages/kwt) | Kubernetes Workstation Tools CLI |
 | [kwt-bin](https://github.com/carvel-dev/kwt) | 0.0.8-10 | [link](https://aur.archlinux.org/packages/kwt-bin) | Kubernetes Workstation Tools CLI |
