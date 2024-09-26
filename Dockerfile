@@ -1,4 +1,4 @@
-FROM ghcr.io/archlinux/archlinux:base-devel-20240824.0.257570
+FROM ghcr.io/archlinux/archlinux:base-devel-20240926.0.265740
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -19,7 +19,7 @@ RUN --mount=type=cache,target=/var/cache/pacman/pkg \
 
 # Install yay from GitHub
 # renovate: datasource=github-releases depName=Jguer/yay
-ARG YAY_VERSION=v12.3.5
+ARG YAY_VERSION=v12.4.2
 RUN --mount=type=tmpfs,target=/tmp \
     curl -sSfL \
       https://github.com/Jguer/yay/releases/download/${YAY_VERSION}/yay_${YAY_VERSION#v}_x86_64.tar.gz \
