@@ -118,6 +118,7 @@ EOF
 arrays=(
     groups
     backup
+    options
 )
 
 for field in "${arrays[@]}"; do
