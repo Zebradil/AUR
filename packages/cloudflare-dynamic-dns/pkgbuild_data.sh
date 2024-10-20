@@ -20,17 +20,14 @@ prepare() {
 build() {
   cd "$pkgname-$pkgver" || exit 1
   export CGO_ENABLED=0
-  GOFLAGS="\
+  go build \
     -buildmode=pie \
     -trimpath \
     -ldflags=-linkmode=external \
-    -ldflags=-X=main.version=$pkgver \
-    -ldflags=-X=main.commit=$pkgver \
-    -ldflags=-X=main.date=$(date -Iseconds) \
+    -ldflags="-X=main.version=$pkgver -X=main.commit=$pkgver -X=main.date=$(date -Iseconds)" \
     -mod=readonly \
-    -modcacherw"
-  export GOFLAGS
-  go build -o build/$pkgname main.go
+    -modcacherw \
+    -o build/$pkgname main.go
 }
 
 check() {
