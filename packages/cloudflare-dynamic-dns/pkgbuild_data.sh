@@ -13,33 +13,39 @@ sha256sums=('')
 _z_update_hashsums=true
 
 prepare() {
-    cd "$pkgname-$pkgver" || exit 1
-    mkdir -p build/
+  cd "$pkgname-$pkgver" || exit 1
+  mkdir -p build/
 }
 
 build() {
-    cd "$pkgname-$pkgver" || exit 1
-    export CGO_CPPFLAGS="${CPPFLAGS}"
-    export CGO_CFLAGS="${CFLAGS}"
-    export CGO_CXXFLAGS="${CXXFLAGS}"
-    export CGO_LDFLAGS="${LDFLAGS}"
-    export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-    go build -o build/$pkgname main.go
+  cd "$pkgname-$pkgver" || exit 1
+  export CGO_ENABLED=0
+  GOFLAGS="\
+    -buildmode=pie \
+    -trimpath \
+    -ldflags=-linkmode=external \
+    -ldflags=-X=main.version=$pkgver \
+    -ldflags=-X=main.commit=$pkgver \
+    -ldflags=-X=main.date=$(date -Iseconds) \
+    -mod=readonly \
+    -modcacherw"
+  export GOFLAGS
+  go build -o build/$pkgname main.go
 }
 
 check() {
-    cd "$pkgname-$pkgver" || exit 1
-    go test ./...
+  cd "$pkgname-$pkgver" || exit 1
+  go test ./...
 }
 
 package() {
-    set -eo pipefail
+  set -eo pipefail
 
-    cd "$pkgname-$pkgver"
+  cd "$pkgname-$pkgver"
 
-    BIN="build/$pkgname"
+  BIN="build/$pkgname"
 
-    install -Dm755 "$BIN" -t "$pkgdir/usr/bin"
-    install -Dm644 systemd/* -t "$pkgdir/usr/lib/systemd/system"
-    install -m700 -d "$pkgdir/etc/$pkgname/config.d"
+  install -Dm755 "$BIN" -t "$pkgdir/usr/bin"
+  install -Dm644 systemd/* -t "$pkgdir/usr/lib/systemd/system"
+  install -m700 -d "$pkgdir/etc/$pkgname/config.d"
 }
