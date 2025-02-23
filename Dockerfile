@@ -1,4 +1,4 @@
-FROM ghcr.io/archlinux/archlinux:base-devel-20250222.0.312435
+FROM ghcr.io/archlinux/archlinux:base-devel-20250223.0.312761
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
