@@ -33,7 +33,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [kbld](https://carvel.dev/kbld) | 0.46.0-1 | [link](https://aur.archlinux.org/packages/kbld) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
 | [kbld-bin](https://carvel.dev/kbld) | 0.46.0-1 | [link](https://aur.archlinux.org/packages/kbld-bin) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
 | [kctrl](https://carvel.dev/kapp-controller) | 0.57.0-1 | [link](https://aur.archlinux.org/packages/kctrl) | Continuous delivery and package management for Kubernetes. |
-| [kctrl-bin](https://carvel.dev/kapp-controller) | 0.57.0-1 | [link](https://aur.archlinux.org/packages/kctrl-bin) | Continuous delivery and package management for Kubernetes. |
+| [kctrl-bin](https://carvel.dev/kapp-controller) | 0.58.0-1 | [link](https://aur.archlinux.org/packages/kctrl-bin) | Continuous delivery and package management for Kubernetes. |
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
 | [kwt](https://github.com/carvel-dev/kwt) | 0.0.8-4 | [link](https://aur.archlinux.org/packages/kwt) | Kubernetes Workstation Tools CLI |
 | [kwt-bin](https://github.com/carvel-dev/kwt) | 0.0.8-10 | [link](https://aur.archlinux.org/packages/kwt-bin) | Kubernetes Workstation Tools CLI |
