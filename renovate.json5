@@ -1,24 +1,33 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: [
-    "config:best-practices",
-    "docker:enableMajor",
-    "default:automergeAll",
+    'config:best-practices',
+    'docker:enableMajor',
+    'default:automergeAll',
   ],
-  // Rebase PRs if needed even if there are commits from other bots
-  gitIgnoredAuthors: ["41898282+github-actions[bot]@users.noreply.github.com"],
-  packageRules: [{
-    matchDatasources: ["docker"],
-    matchPackageNames: ["ghcr.io/archlinux/archlinux"],
-    // base-20231107.0.190206
-    versioning: "regex:^(?<compatibility>.+)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<build>\\d+)$",
-  }],
-  regexManagers: [{
-    fileMatch: ["^Dockerfile$"],
-    // # renovate: datasource=github-releases depName=Jguer/yay
-    // ARG YAY_VERSION=v12.1.1
-    matchStrings: [
-      "#\\s+renovate:\\s+datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)\\s+(ARG|ENV)\\s+\\S+=['\"]?(?<currentValue>[^'\"\\s]+)['\"]?",
-    ]
-  }],
+  gitIgnoredAuthors: [
+    '41898282+github-actions[bot]@users.noreply.github.com',
+  ],
+  packageRules: [
+    {
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'ghcr.io/archlinux/archlinux',
+      ],
+      versioning: 'regex:^(?<compatibility>.+)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<build>\\d+)$',
+    },
+  ],
+  customManagers: [
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^Dockerfile$/',
+      ],
+      matchStrings: [
+        '#\\s+renovate:\\s+datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)\\s+(ARG|ENV)\\s+\\S+=[\'"]?(?<currentValue>[^\'"\\s]+)[\'"]?',
+      ],
+    },
+  ],
 }
