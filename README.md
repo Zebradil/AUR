@@ -22,10 +22,10 @@ Depending on what you want to do, you may need the following tools/packages:
 | Package | Version | AUR | Description |
 | ------- | ------- | --- | ----------- |
 | [alacritty-colorscheme-git](https://github.com/zebradil/alacritty-colorscheme/) | r51.257e466-2 | [link](https://aur.archlinux.org/packages/alacritty-colorscheme-git) | Change colorscheme of alacritty with ease |
-| [carvel-tools](https://carvel.dev) | 20250821-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
+| [carvel-tools](https://carvel.dev) | 20250909-1 | [link](https://aur.archlinux.org/packages/carvel-tools) | Deprecated: install carvel tools separately |
 | [cloudflare-dynamic-dns](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.3.17-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns) | Updates AAAA records at Cloudflare according to the current IPv6 address |
 | [cloudflare-dynamic-dns-bin¹](https://github.com/zebradil/cloudflare-dynamic-dns) | 4.3.17-1 | [link](https://aur.archlinux.org/packages/cloudflare-dynamic-dns-bin) | Dynamic DNS client for Cloudflare with IPv6/IPv4 support |
-| [gke-kubeconfiger-bin¹](https://github.com/zebradil/gke-kubeconfiger) | 0.7.47-1 | [link](https://aur.archlinux.org/packages/gke-kubeconfiger-bin) | Setup kubeconfigs for all accessible GKE clusters. |
+| [gke-kubeconfiger-bin¹](https://github.com/zebradil/gke-kubeconfiger) | 0.7.49-1 | [link](https://aur.archlinux.org/packages/gke-kubeconfiger-bin) | Setup kubeconfigs for all accessible GKE clusters. |
 | [imgpkg](https://carvel.dev/imgpkg) | 0.46.1-1 | [link](https://aur.archlinux.org/packages/imgpkg) | Store application configuration files in Docker/OCI registries |
 | [imgpkg-bin](https://carvel.dev/imgpkg) | 0.46.1-1 | [link](https://aur.archlinux.org/packages/imgpkg-bin) | Store application configuration files in Docker/OCI registries |
 | [kapp](https://carvel.dev/kapp) | 0.64.2-1 | [link](https://aur.archlinux.org/packages/kapp) | kapp is a simple deployment tool focused on the concept of "Kubernetes application" — a set of resources with the same label |
@@ -46,8 +46,8 @@ Depending on what you want to do, you may need the following tools/packages:
 | [vendir-bin](https://carvel.dev/vendir) | 0.44.0-1 | [link](https://aur.archlinux.org/packages/vendir-bin) | Easy way to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively |
 | [xkb-switch-i3](https://github.com/zebradil/xkb-switch-i3) | 2.0.1+i3_5-9 | [link](https://aur.archlinux.org/packages/xkb-switch-i3) | Program that allows to query and change the XKB layout state (with i3wm auto-switch mode) |
 | [xkb-switch-i3-git](https://github.com/zebradil/xkb-switch-i3) | 2.0.1+i3_5-6 | [link](https://aur.archlinux.org/packages/xkb-switch-i3-git) | Program that allows to query and change the XKB layout state (with i3wm auto-switch mode) |
-| [ytt](https://carvel.dev/ytt) | 0.52.0-1 | [link](https://aur.archlinux.org/packages/ytt) | YAML templating tool that works on YAML structure instead of text |
-| [ytt-bin](https://carvel.dev/ytt) | 0.52.0-1 | [link](https://aur.archlinux.org/packages/ytt-bin) | YAML templating tool that works on YAML structure instead of text |
+| [ytt](https://carvel.dev/ytt) | 0.52.1-1 | [link](https://aur.archlinux.org/packages/ytt) | YAML templating tool that works on YAML structure instead of text |
+| [ytt-bin](https://carvel.dev/ytt) | 0.52.1-1 | [link](https://aur.archlinux.org/packages/ytt-bin) | YAML templating tool that works on YAML structure instead of text |
 
 ¹ - Package is maintained in the AUR but not in this repository.
     Check the PKGBUILD file of the package for more information.
