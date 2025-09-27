@@ -19,7 +19,7 @@ RUN --mount=type=cache,target=/var/cache/pacman/pkg \
 
 # Install yay from GitHub
 # renovate: datasource=github-releases depName=Jguer/yay
-ARG YAY_VERSION=v12.5.0
+ARG YAY_VERSION=v12.5.2
 RUN --mount=type=tmpfs,target=/tmp \
     curl -sSfL \
       https://github.com/Jguer/yay/releases/download/${YAY_VERSION}/yay_${YAY_VERSION#v}_x86_64.tar.gz \
