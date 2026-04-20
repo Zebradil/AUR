@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - name: Set pending commit status
-        uses: myrotvorets/set-commit-status-action@1bd79bddbf777ac5e6159f78faf14307daf848f0 # master
+        uses: myrotvorets/set-commit-status-action@d15665d5a28382c08d267316b923bb52ec32fbe8 # master
         with:
           status: pending
   build_and_push_image:
@@ -246,7 +246,7 @@ jobs:
           allowed-skips: update_packages
           jobs: ${{ toJSON(needs) }}
       - name: Set final commit status
-        uses: myrotvorets/set-commit-status-action@1bd79bddbf777ac5e6159f78faf14307daf848f0 # master
+        uses: myrotvorets/set-commit-status-action@d15665d5a28382c08d267316b923bb52ec32fbe8 # master
         if: always()
         with:
           status: ${{ steps.overall_status.outputs.result }}
