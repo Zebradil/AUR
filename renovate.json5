@@ -13,6 +13,13 @@
     matchPackageNames: ["ghcr.io/archlinux/archlinux"],
     // base-20231107.0.190206
     versioning: "regex:^(?<compatibility>.+)-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<build>\\d+)$",
+    // - Going from 20251231 → 20260101 is a numeric jump of 8870 (the
+    //   year-boundary makes the integer diff huge even though it's one calendar day).
+    //   Every subsequent 20260* tag is at least that far ahead of the pinned
+    //   20251231 value.
+    // - Renovate's maxMajorIncrement defaults to 500, so every tag from
+    //   Jan 2026 onward gets silently filtered as "too big a major bump."
+    maxMajorIncrement: 0,
   }],
   customManagers: [{
     customType: "regex",
