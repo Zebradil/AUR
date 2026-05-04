@@ -6,8 +6,8 @@ if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
     echo '::notice::Running as user: '"${APP_USER:?}"
     chown -R "${APP_USER:?}" "${GITHUB_WORKSPACE:?}"
     chown -R "${APP_USER:?}" "${GITHUB_OUTPUT:?}"
-    exec runuser "${APP_USER:?}" --command "bash -l $1"
+    exec runuser -c "bash -l $1" "${APP_USER:?}"
 else
     echo 'Running as user: '"${APP_USER:?}"
-    exec runuser "${APP_USER:?}" --command "bash -l -c '$*'"
+    exec runuser -c "bash -l -c '$*'" "${APP_USER:?}"
 fi
