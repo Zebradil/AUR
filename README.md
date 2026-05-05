@@ -46,7 +46,7 @@ Depending on what you want to do, you may need the following tools/packages:
 | [vendir-bin](https://carvel.dev/vendir) | 0.45.3-1 | [link](https://aur.archlinux.org/packages/vendir-bin) | Easy way to vendor portions of git repos, github releases, helm charts, docker image contents, etc. declaratively |
 | [xkb-switch-i3](https://github.com/zebradil/xkb-switch-i3) | 2.0.1+i3_5-9 | [link](https://aur.archlinux.org/packages/xkb-switch-i3) | Program that allows to query and change the XKB layout state (with i3wm auto-switch mode) |
 | [xkb-switch-i3-git](https://github.com/zebradil/xkb-switch-i3) | 2.0.1+i3_5-6 | [link](https://aur.archlinux.org/packages/xkb-switch-i3-git) | Program that allows to query and change the XKB layout state (with i3wm auto-switch mode) |
-| [ytt](https://carvel.dev/ytt) | 0.53.2-1 | [link](https://aur.archlinux.org/packages/ytt) | YAML templating tool that works on YAML structure instead of text |
+| [ytt](https://carvel.dev/ytt) | 0.54.0-1 | [link](https://aur.archlinux.org/packages/ytt) | YAML templating tool that works on YAML structure instead of text |
 | [ytt-bin](https://carvel.dev/ytt) | 0.54.0-1 | [link](https://aur.archlinux.org/packages/ytt-bin) | YAML templating tool that works on YAML structure instead of text |
 
 ¹ - Package is maintained in the AUR but not in this repository.
