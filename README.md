@@ -30,8 +30,8 @@ Depending on what you want to do, you may need the following tools/packages:
 | [imgpkg-bin](https://carvel.dev/imgpkg) | 0.48.2-1 | [link](https://aur.archlinux.org/packages/imgpkg-bin) | Store application configuration files in Docker/OCI registries |
 | [kapp](https://carvel.dev/kapp) | 0.65.4-1 | [link](https://aur.archlinux.org/packages/kapp) | kapp is a simple deployment tool focused on the concept of "Kubernetes application" — a set of resources with the same label |
 | [kapp-bin](https://carvel.dev/kapp) | 0.65.4-1 | [link](https://aur.archlinux.org/packages/kapp-bin) | kapp is a simple deployment tool focused on the concept of "Kubernetes application" — a set of resources with the same label |
-| [kbld](https://carvel.dev/kbld) | 0.49.1-1 | [link](https://aur.archlinux.org/packages/kbld) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
-| [kbld-bin](https://carvel.dev/kbld) | 0.49.1-1 | [link](https://aur.archlinux.org/packages/kbld-bin) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
+| [kbld](https://carvel.dev/kbld) | 0.49.2-1 | [link](https://aur.archlinux.org/packages/kbld) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
+| [kbld-bin](https://carvel.dev/kbld) | 0.49.2-1 | [link](https://aur.archlinux.org/packages/kbld-bin) | kbld seamlessly incorporates image building and image pushing into your development and deployment workflows |
 | [kctrl](https://carvel.dev/kapp-controller) | 0.60.9-1 | [link](https://aur.archlinux.org/packages/kctrl) | Continuous delivery and package management for Kubernetes. |
 | [kctrl-bin](https://carvel.dev/kapp-controller) | 0.60.9-1 | [link](https://aur.archlinux.org/packages/kctrl-bin) | Continuous delivery and package management for Kubernetes. |
 | [kuttle¹](https://github.com/kayrus/kuttle) | 1.1.1-1 | [link](https://aur.archlinux.org/packages/kuttle) | Kubernetes wrapper for sshuttle |
